@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../Home/Header';
+import Footer from '../Home/Footer';
 
-class SignUp extends Component {
+class Register extends Component {
     render() {
         return (
             <div>
-                <Header>
-                    {/* Header content */}
-                </Header>
 
                 {/* Form Login */}
                 <div className="formLogin__container">
@@ -56,11 +53,9 @@ class SignUp extends Component {
                         </p>
                     </div>
                 </div>
-
-                <Footer> {/* Footer content */}</Footer>
             </div>
         );
     }
 }
 
-export default SignUp;
+export default Register;

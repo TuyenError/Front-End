@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import Content from './Components/Content/Content';
-import Footer from './Components/Footer/Footer';
-import Header from './Components/Header/Header';
-import SignUp from './Components/SignUp/SignUp';
-
-
-
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Header from './Components/Home/Header';
+import Content from './Components/Home/Content';
+import Footer from './Components/Home/Footer';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 
 function App() {
   return (
-    <div >
-      <Header></Header>
-      <Content></Content>
-      <Footer></Footer>
-      <SignUp></SignUp>
-    </div>
+
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Content /> } />
+        <Route path="Login" element={<Login />} />
+        <Route path="Register" element={<Register />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
 export default App;
+

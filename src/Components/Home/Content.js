@@ -80,7 +80,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img src="./assets/images/items/bun-dau.jpg" alt="item" />
+                                <img src="/images/items/bun-dau.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Bún Đậu Nhà Cuội">Bún Đậu Nhà Cuội</h5>
                                     <h4>
@@ -96,7 +96,7 @@ class Content extends Component {
                             </div>
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
-                                <img src="./assets/images/items/mi-quang.jpg" alt="item" />
+                                <img src="/images/items/mi-quang.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Mỳ Quảng My Ny">Mỳ Quảng My Ny</h5>
                                     <h4>
@@ -113,7 +113,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/phuc-long.jpg" alt="item" />
+                                <img src="/images/items/phuc-long.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Phúc Long">Phúc Long</h5>
                                     <h4>
@@ -129,7 +129,7 @@ class Content extends Component {
                             </div>
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
-                                <img src="./assets/images/items/tra-sua.jpeg" alt="item" />
+                                <img src="/images/items/tra-sua.jpeg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Trà Sữa Bobapop">Trà Sữa Bobapop</h5>
                                     <h4>
@@ -146,7 +146,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/com-xoi.jpg" alt="item" />
+                                <img src="/images/items/com-xoi.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Cơm Gà Xối Mỡ">Cơm Gà Xối Mỡ</h5>
                                     <h4>
@@ -163,7 +163,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/com-tho.jpg" alt="item" />
+                                <img src="/images/items/com-tho.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Cơm Thố Tuấn Lộc">Cơm Thố Tuấn Lộc</h5>
                                     <h4>
@@ -180,7 +180,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/item1.jpg" alt="item" />
+                                <img src="/images/items/item1.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Bún bò">Bún bò</h5>
                                     <h4>
@@ -197,7 +197,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/item2.jpg" alt="item" />
+                                <img src="/images/items/item2.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Trà Sữa">Trà Sữa</h5>
                                     <h4>
@@ -214,7 +214,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/pizza.jpg" alt="item" />
+                                <img src="/images/items/pizza.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Pizza">Pizza</h5>
                                     <h4>
@@ -231,7 +231,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/mi-quang2.jpg" alt="item" />
+                                <img src="/images/items/mi-quang2.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Mì Quảng">Mì Quảng</h5>
                                     <h4>
@@ -248,7 +248,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/tocotoco.jpg" alt="item" />
+                                <img src="/images/items/tocotoco.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Trà Sữa Tocotoco">Trà Sữa Tocotoco</h5>
                                     <h4>
@@ -265,7 +265,7 @@ class Content extends Component {
                             <div className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/nuoc-xoai-ep.jpg" alt="item" />
+                                <img src="/images/items/nuoc-xoai-ep.jpg" alt="item" />
                                 <div className="name-and-address">
                                     <h5 title="Nước Xoài Ép">Nước Xoài Ép</h5>
                                     <h4>

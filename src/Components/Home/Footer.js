@@ -39,12 +39,12 @@ class Footer extends Component {
                                 <img src="logosightglass.png" alt="logo" />
                             </div>
                             <p>© 2023 Sightglass Coffee</p>
-                            <div className="footer__copyright--icon">
-                                <span className="facebook">
-                                    <i className="bi bi-facebook icon-lg" />
+                            <div class="footer__copyright--icon">
+                                <span class="facebook">
+                                    <i class="icon fab fa-facebook-f"></i>
                                 </span>
-                                <span className="instagram">
-                                    <i className="bi bi-instagram icon-lg" />
+                                <span class="instagram">
+                                    <i class="icon fab fa-instagram"></i>
                                 </span>
                             </div>
                         </div>

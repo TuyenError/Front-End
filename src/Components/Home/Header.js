@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import SignUp from '../SignUp/SignUp';
+import { Link, Outlet } from 'react-router-dom';
 
-class Header extends Component {
-    render() {
+
+
+function Header() {
         return (
-
+            <>
             <nav className="navbar">
                 <div className="navbar--container">
                     <div className="navbar--left">
                         <div className="navbar__logo" href="#">
-                            <a href="./SightglassCoffee">
+                            <Link to="/">
                                 <img src="logosightglass.png" alt="logo" style={{ width: '45px', height: '45px' }} />
-                            </a>
+                            </Link>
                         </div>
                         <a className="navbar__location" href="#">
                             Địa điểm
@@ -44,10 +45,10 @@ class Header extends Component {
                     <div className="navbar--right">
                         <i className="fas fa-shopping-cart" style={{ cursor: 'pointer' }} />
                         <div className="login">
-                            <a href="./login.html" className="login--btn">Đăng Nhập</a>
+                            <Link to="Login" className="login--btn">Đăng Nhập</Link>
                         </div>
                         <div className="login">
-                            <a href="SingUp" className="login--btn">Đăng Ký</a>
+                            <Link to="Register" className="login--btn">Đăng Ký</Link>
                         </div>
                         <div className="navbar__menu--toggle">
                             <i className="fa-solid fa-bars" />
@@ -55,7 +56,8 @@ class Header extends Component {
                     </div>
                 </div>
             </nav>
+            <Outlet/>
+            </>
         );
     }
-}
 export default Header;
