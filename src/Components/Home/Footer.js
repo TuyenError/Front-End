@@ -10,15 +10,12 @@ class Footer extends Component {
                         <h5>Công ty</h5>
                         <ul className="footer--introduce my-20">
                             <li><a href="#!">Giới thiệu</a></li>
-                            <li><a href="#!">Trung tâm Trợ giúp</a></li>
                             <li><a href="#!">Quy chế</a></li>
                             <li><a href="#!">Điều khoản sử dụng</a></li>
                             <li><a href="#!">Bảo mật thông tin</a></li>
                             <li><a href="#!">Giải quyết khiếu nại</a></li>
                             <li><a href="#!">Liên hệ</a></li>
                             <li><a href="#!">Hợp tác nhân viên giao nhận</a></li>
-                            <li><a href="#!">Đăng ký quán</a></li>
-                            <li><a href="#!">ShopeeFood Uni</a></li>
                         </ul>
                     </div>
                     <div>

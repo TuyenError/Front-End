@@ -15,30 +15,24 @@ function Header() {
                             </Link>
                         </div>
                         <a className="navbar__location" href="#">
-                            Địa điểm
+                            Đà Nẵng
                             <i className="fa-solid fa-caret-down" />
                         </a>
                         <ul className="navbar--categories">
                             <li className="nav--item">
-                                <a className="nav--link active" href="index.html">Đồ ăn</a>
+                                <a className="nav--link active" href="index.html">Đồ Ăn</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Thực Phẩm</a>
+                                <a className="nav--link" href="#">Shop</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Bia</a>
+                                <a className="nav--link" href="#">Ưu Đãi</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Hoa</a>
+                                <a className="nav--link" href="#">Sản Phẩm Hot</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Siêu Thị</a>
-                            </li>
-                            <li className="nav--item">
-                                <a className="nav--link" href="#">Thuốc</a>
-                            </li>
-                            <li className="nav--item">
-                                <a className="nav--link" href="#">Thú cưng</a>
+                                <a className="nav--link" href="#">Liên Hệ</a>
                             </li>
                         </ul>
                     </div>
