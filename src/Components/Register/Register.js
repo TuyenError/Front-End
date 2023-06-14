@@ -1,152 +1,170 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Field, Formik } from "formik";
+import { SignupSchema } from "./schema";
+import { useMutation } from "react-query";
 
 const Register = () => {
-    const [fullName, setFullName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [selectedOption, setSelectedOption] = useState('personal');
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  return (
+    <div>
+      <div className="formLogin__container">
+        <div className="loginShoppe text-center">
+          <h2 className="formLogin__title">Đăng Ký</h2>
+          {/* Rest of the code... */}
+          <Formik
+            validationSchema={SignupSchema}
+            initialValues={{
+              fullName: "",
+              phone: "",
+              email: "",
+              username: "",
+              password: "",
+              confirmPassword: "",
+              selectedOption: "personal",
+            }}
+            onSubmit={(values, actions) => {
+              //   registerMutation(values).then(() => {
+              //     actions.resetForm();
+              //   });
+            }}
+          >
+            {({
+              values,
+              handleChange,
+              handleSubmit,
+              errors,
+              touched,
+              handleBlur,
+            }) => {
+              console.log(values);
+              return (
+                <form onSubmit={handleSubmit}>
+                  <div className="userNamePassword">
+                    <i className="far fa-user formLogin--icon" />
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full Name"
+                      value={values.fullName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.fullName && touched.fullName ? (
+                      <div>{errors.fullName}</div>
+                    ) : null}
+                    <i className="fas fa-phone-alt formLogin--icon" />
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="Phone"
+                      value={values.phone}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.phone && touched.phone ? (
+                      <div>{errors.phone}</div>
+                    ) : null}
+                    <i className="far fa-envelope formLogin--icon" />
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="Email"
+                      value={values.email}
+                      onChange={handleChange}
+                    />
+                    <i className="far fa-user formLogin--icon" />
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      value={values.username}
+                      onChange={handleChange}
+                    />
+                    <i className="fas fa-lock formLogin--icon" />
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={values.password}
+                      onChange={handleChange}
+                    />
+                    <i className="fas fa-lock formLogin--icon" />
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                    />
+                    <hr />
 
-    const handleRegister = async (event) => {
-        event.preventDefault();
-        try {
-            // Make an API call to register the user
-            await axios.post('/register', {
-                fullName,
-                phone,
-                email,
-                username,
-                password,
-                confirmPassword,
-                role: selectedOption === 'personal' ? 'personal' : 'seller',
-            });
-
-            // Reset the form fields
-            setFullName('');
-            setPhone('');
-            setEmail('');
-            setUsername('');
-            setPassword('');
-            setConfirmPassword('');
-
-            // Navigate to the home page
-            navigate('/');
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    return (
-        <div>
-            <div className="formLogin__container">
-                <div className="loginShoppe text-center">
-                    <h2 className="formLogin__title">Đăng Ký</h2>
-                    {/* Rest of the code... */}
-
-                    <form onSubmit={handleRegister}>
-                        <div className="userNamePassword">
-                            <i className="far fa-user formLogin--icon" />
-                            <input
-                                type="text"
-                                placeholder="Full Name"
-                                value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
-                                required
-                            />
-                            <i className="fas fa-phone-alt formLogin--icon" />
-                            <input
-                                type="text"
-                                placeholder="Phone"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                                required
-                            />
-                            <i className="far fa-envelope formLogin--icon" />
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            <i className="far fa-user formLogin--icon" />
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                            <i className="fas fa-lock formLogin--icon" />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <i className="fas fa-lock formLogin--icon" />
-                            <input
-                                type="password"
-                                placeholder="Confirm Password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                required
-                            />
-                            <hr />
-
-                            <div className="wrapper">
-                                <input
-                                    type="radio"
-                                    name="select"
-                                    id="option-1"
-                                    checked={selectedOption === 'personal'}
-                                    onChange={() => setSelectedOption('personal')}
-                                />
-                                <input
-                                    type="radio"
-                                    name="select"
-                                    id="option-2"
-                                    checked={selectedOption === 'seller'}
-                                    onChange={() => setSelectedOption('seller')}
-                                />
-
-                                <label htmlFor="option-1" className="option option-1">
-                                    <div className="dot"></div>
-                                    <span>Cá Nhân</span>
-                                </label>
-
-                                <label htmlFor="option-2" className="option option-2">
-                                    <div className="dot"></div>
-                                    <span>Bán Hàng</span>
-                                </label>
+                    <div className="wrapper">
+                      <Field
+                        name="selectedOption"
+                        render={({ field }) => (
+                          <>
+                            <div className="radio-item">
+                              <input
+                                {...field}
+                                id="personal"
+                                value="personal"
+                                checked={field.value === "personal"}
+                                name="selectedOption"
+                                type="radio"
+                              />
+                              <label htmlFor="personal">Personal</label>
                             </div>
 
-                            <hr />
-                        </div>
+                            <div className="radio-item">
+                              <input
+                                {...field}
+                                id="seller"
+                                value="seller"
+                                name="selectedOption"
+                                checked={field.value === "seller"}
+                                type="radio"
+                              />
+                              <label htmlFor="seller">Seller</label>
+                            </div>
+                          </>
+                        )}
+                      />
+                      {/* <label htmlFor="option-1" className="option option-1">
+                        <div className="dot"></div>
+                        <span>Cá Nhân</span>
+                      </label>
 
-                        {/* Rest of the code... */}
+                      <label htmlFor="option-2" className="option option-2">
+                        <div className="dot"></div>
+                        <span>Bán Hàng</span>
+                      </label> */}
+                    </div>
 
-                        <button type="submit" className="btnSubmit">
-                            Đăng Nhập
-                        </button>
-                    </form>
+                    <hr />
+                  </div>
 
-                    <p className="rules">
-                        Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào.
-                        Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với{' '}
-                        <a href> Chính sách quy định của Foody</a>
-                    </p>
-                </div>
-            </div>
+                  {/* Rest of the code... */}
+
+                  <button type="submit" className="btnSubmit">
+                    Đăng Nhập
+                  </button>
+                </form>
+              );
+            }}
+          </Formik>
+
+          <p className="rules">
+            Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào.
+            Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với{" "}
+            <a href> Chính sách quy định của Foody</a>
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Register;
