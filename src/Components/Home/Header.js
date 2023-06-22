@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-
-
 function Header() {
         return (
             <>
@@ -23,7 +21,7 @@ function Header() {
                                 <a className="nav--link active" href="index.html">Đồ Ăn</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Shop</a>
+                                <Link className="nav--link" to="shops">Shop</Link>
                             </li>
                             <li className="nav--item">
                                 <a className="nav--link" href="#">Ưu Đãi</a>

@@ -1,0 +1,279 @@
+main {
+    margin-top: 70px;
+}
+a {
+    color: #0288d1;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+.main__banner--shop {
+    border-radius: 10px;
+    padding: 30px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    height: 85vh;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+.details-shop {
+    background-color: #fff;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.img-shops {
+    width: 480px;
+    height: 300px;
+    position: relative;
+    float: left;
+}
+.img-shops img{
+    width: 100%;
+    height: 100%;
+}
+.details-shops-info {
+    color: #252525;
+    float: right;
+    width: 645px;
+    padding-bottom: 15px;
+    margin-left: 70px;
+    margin-top: 10px;
+}
+.kind-shops {
+    font-size: 11px;
+    color: #959595;
+    text-transform: uppercase;
+    display: flex;
+}
+.name-shop {
+    font-size: 22px;
+    color: #464646;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 4px;
+    line-height: 33px;
+}
+.location {
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+.rating {
+    margin-bottom: 4px;
+    font-size: 14px;
+    vertical-align: middle;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.stars {
+    font-size: 14px;
+    color: #ffc107;
+    display: inline-block;
+    line-height: 8px;
+}
+.rating .stars span {
+    padding-right: 2px;
+}
+.rating .number-rating {
+    background-color: #ffc107;
+    padding: 0 5px;
+    border-radius: 4px;
+    color: #fff;
+    margin: 0 5px;
+}
+.view-more-rating {
+    margin-bottom: 4px;
+}
+.number-review {
+    font-size: 14px;
+}
+.status-shop {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+}
+.open-time .stt {
+    width: inherit;
+    height: inherit;
+    vertical-align: middle;
+    display: inline-block;
+    background-color: transparent;
+}
+.stt:after {
+    content: attr(title);
+    font-size: 15px;
+    display: inline-block;
+    white-space: nowrap;
+    color: inherit;
+    padding-left: 5px;
+}
+.stt:before {
+    content: "";
+    border-radius: 50%;
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    z-index: 2;
+}
+.online:before {
+    background-color: #6cc942;
+}
+.online {
+    background-color: #6cc942;
+    color: #329900;
+}
+.time {
+    font-size: 15px;
+    padding-left: 10px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+.time-open-close {
+    padding-left: 6px;
+}
+.cost-shop {
+    display: flex;
+    align-items: center;
+}
+.cost-shop span {
+    margin-left: 5px;
+}
+.utility-shop{
+    margin-top: 35px;
+    border-top: 1px solid #ebebeb;
+}
+.utility-item:first-child {
+    padding-left: 0;
+}
+.utility-item{
+    float: left;
+    width: 140px;
+    position: relative;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.utility-title {
+    color: #959595;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.utility-content {
+    font-size: 14px;
+}
+.txt-red, .txt-red-dark {
+    color: #ee4d2d!important;
+}
+.txt-bold {
+    font-weight: 700!important;
+}
+.icon {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.icon-partner-vi {
+    background-image: url(https://shopeefood.vn/app/assets/img/partner-vi.png?dec00ea8fc6f5429f18e83d16c3685f8);
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    cursor: pointer;
+    width: 116px;
+    height: 44px;
+}
+.card {
+    margin-left: 5px;
+}
+
+/* section show produc shops */
+
+.section-categories {
+    font-family: Noto Sans,Arial,sans-serif;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #464646;
+    text-align: left;
+    background-color: #f2f2f2;
+}
+.title-categories {
+    font-weight: 700;
+    color: #cf2127;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 13px 26px;
+}
+.menu-shop-categories {
+    border: 1px solid #ebebeb;
+    padding: 15px 5px 15px 15px;
+    width: 235px;
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 4px;
+}
+.list-categories {
+    margin-bottom: 0;
+}
+.item-categories {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px 0;
+    padding: 2px 0;
+    text-decoration: none;
+}
+.item-categories a {
+    color: #464646;
+    font-weight: 500;
+}
+.menu-shop-details {
+    background-color: #fff;
+    padding: 10px;
+}
+.image-product-lits {
+    width: 100px;
+    height: 70px;
+}
+.title-list-product {
+    text-transform: uppercase;
+    color: #6d6f71;
+    padding: 25px;
+    margin-top: 10px;
+    margin: 10px 0 20px;
+}
+.table {
+    padding: 0px 20px;
+}
+.table tr td {
+    align-items: center;
+}
+.td-name-product {
+    width: 500px;
+    color: #464646;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.old-price {
+    font-size: 13px;
+    text-decoration: line-through;
+    color: #6d6f71;
+}
+.current-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0288d1;
+}

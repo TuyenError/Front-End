@@ -7,6 +7,8 @@ import Content from "./Components/Home/Content";
 import Footer from "./Components/Home/Footer";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
+import Shops from "./Components/Shops/Shops";
+import ShopDetails from "./Components/Shops/ShopDetails";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
@@ -20,6 +22,10 @@ function App() {
           <Route path="/" element={<Content />} />
           <Route path="Login" element={<Login />} />
           <Route path="Register" element={<Register />} />
+
+          {/* shop */}
+          <Route path="shops" element={<Shops/>} />
+          <Route path="shopDetails/:id" element={<ShopDetails/>} />
         </Routes>
         <Footer />
       </Router>
