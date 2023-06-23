@@ -4,8 +4,7 @@ import SignUp from '../SignUp/SignUp';
 class Header extends Component {
     render() {
         return (
-
-            <nav className="navbar">
+            <nav className="navbar" style={{ position: "relative", zIndex: "1" }}>
                 <div className="navbar--container">
                     <div className="navbar--left">
                         <div className="navbar__logo" href="#">

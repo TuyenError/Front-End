@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -1000,3 +1001,354 @@ footer {
     padding-top: 50px;
   }
 }
+
+/* fix */
+html {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+select,
+button {
+  outline: none;
+}
+
+input {
+  line-height: normal;
+}
+
+label,
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* css danh mục thực đơn */
+.menu-item {
+  color: rgb(17, 16, 16);
+  margin-bottom: 10px;
+}
+
+
+
+.item-active {
+  color: rgb(178, 39, 39);
+  font-weight: bold;
+
+}
+
+
+.menu-container{
+  background-color: #f2f2f2;
+}
+
+.search-items{
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.menu-restaurant-category {
+  border: 1px solid #ffff;
+  padding: 10px;
+  width: 160px;
+  border-radius: 5px;
+  background-color: #ffff;
+}
+
+.btn {
+  background-color: #fca311;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease
+}
+
+.shop-info {
+  color: #000;
+}
+
+.menu-restaurant-tab {
+  margin-left: 100px;
+  display: flex;
+}
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-item {
+  width: 33%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.product-item__image {
+  width: 30%;
+}
+
+.product-item__image img {
+  width: 100%;
+}
+
+.product-item__content {
+  width: 70%;
+  padding-left: 10px;
+}
+
+.product-item__content h3,
+.product-item__content p {
+  margin: 0;
+  padding: 0;
+}
+
+.product-item__content--name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-item__content--price-old,
+.product-item__content--price-new {
+  font-size: 14px;
+}
+.main__banner--restaurant {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.main__banner--card:hover {
+  transform: translateY(-5px);
+  /* Các thuộc tính CSS khác khi hover */
+}
+
+.main__banner--card {
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+  border-radius: 7px;
+  border: 1px solid rgb(238, 227, 227);
+  width: 23%;
+  margin-bottom: 20px;
+}
+
+.card__image img {
+  height: 100%;
+  width: 100%;
+  /* Thêm các thuộc tính CSS khác cho hình ảnh */
+}
+
+.card__price h3 {
+  color: black;
+
+}
+.menu-container {
+  background-color: #f2f2f2;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.menu-restaurant-category {
+  max-width: 200px;
+  /* Giới hạn độ rộng tối đa */
+  margin: 0 auto;
+  /* Căn giữa theo chiều ngang */
+  border: 1px solid #ffff;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffff;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  /* Thêm thuộc tính z-index */
+}
+
+
+
+.item-active {
+  color: rgb(178, 39, 39);
+  font-weight: bold;
+}
+
+.name-menu {
+  display: flex;
+  justify-content: center;
+}
+
+.list-category {
+  display: flex;
+  justify-content: center;
+}
+
+/* search items */
+
+.search-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  background-color: #ffff;
+  border-radius: 5px;
+  z-index: 2;
+  /* Thêm thuộc tính z-index cao hơn */
+  margin-top: 25px;
+  /* Thay đổi giá trị margin-top thành 25px */
+
+}
+
+.search-input-container {
+  position: relative;
+}
+
+.search-find-items {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  width: 350px;
+  height: 40px;
+  position: relative;
+  padding-left: 30px;
+  margin-top: 10px;
+}
+
+.search-find-items:focus {
+  outline: none;
+  /* Loại bỏ viền mặc định */
+  border: 2px solid rgb(178, 39, 39);
+  /* Đặt màu viền khi focus */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+
+
+
+/* show item css */
+.item-restaurant-row {
+  height: 81px;
+  left: 0;
+  position: absolute;
+  top: 56px;
+  width: 100%;
+  margin-top: 70px;
+
+}
+
+.item-restaurant-row .row {
+  display: flex;
+}
+
+.item-restaurant-img {
+  margin-right: 10px;
+}
+
+.item-restaurant-img img {
+  width: 60px;
+  height: 60px;
+}
+
+.item-restaurant-info {
+  flex: 1;
+}
+
+
+
+.product-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.old-price,
+.current-price {
+  margin: 0;
+
+}
+
+.old-price {
+  text-decoration: line-through;
+
+}
+
+.adding-food-cart {
+  text-align: right;
+  vertical-align: middle;
+}
+
+.btn-adding {
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 20px;
+  width: 22px;
+  height: 22px;
+  background-color: #ee4d2d;
+  text-align: center;
+  color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.menu-group {
+  height: 56px;
+  left: 0;
+  position: relative;
+  /* Thay đổi position thành relative */
+  top: 0;
+  width: 100%;
+  margin-top: 90px;
+}
+
+.title-menu {
+  display: flex;
+  align-items: center;
+
+}
+
+.show_items {
+  width: 450px;
+}
+.item-restaurant-name{
+  font-size: 16px;
+}
+

@@ -1,361 +1,320 @@
 import React, { Component } from 'react';
 
 class Content extends Component {
-    render() {
-        return (
-            <div>
-                <section className="main__banner">
-                    <div className="main__banner--content">
-                        <div className="main__banner--search">
-                            <h1>Đặt Đồ ăn, giao hàng từ 20'...</h1>
-                            <h3 className="my-20">Có 12126 Địa Điểm Ở Đà Nẵng Từ 00:00 - 23:59</h3>
-                            <div className="main__banner--input">
-                                <input type="text" placeholder="Tìm địa điểm, món ăn, địa chỉ..." />
-                                <button className="btn-primary" type="button">
-                                    <i className="fas fa-search" />
-                                </button>
-                            </div>
-                            <div className="main__list--search">
-                                <div className="main__list--item">
-                                    <h3>All</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Đồ ăn</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Đồ uống</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Đồ chay</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Bánh kem</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Tráng miệng</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Homemade</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Vỉa hè</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Pizza/Burger</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Món gà</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Món lẩu</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Sushi</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Mì phở</h3>
-                                </div>
-                                <div className="main__list--item">
-                                    <h3>Cơm hộp</h3>
-                                </div>
-                            </div>
-                            <h3 className="my-20">
-                                Sử dụng App ShopeeFood để có nhiều giảm giá và trải nghiệm tốt hơn
-                            </h3>
-                            <div className="main__banner--app">
-                                <div>
-                                    <a href="#!"><img className="app" src="images/AppStore-vn.png" alt="appstore" /></a>
-                                </div>
-                                <div>
-                                    <a href="#!"><img className="app" src="images/PlayStore-vn.png" alt="playstore" /></a>
-                                </div>
-                            </div>
-                        </div>
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: [],
+        };
+    }
+    // get all items
+    componentDidMount() {
+        fetch('https://6483f301ee799e3216262c7d.mockapi.io/Products')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    products: data,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    // select item follow id
+    handleProductClick = (product) => {
+        fetch(`https://6483f301ee799e3216262c7d.mockapi.io/Shop/${product.id_shop}`)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    selectedProduct: product,
+                    selectedShop: data,
+                });
+                const discountedShopItems = this.state.products.filter(
+                    (item) => item.id_shop === product.id_shop && item.promotion_price
+                );
+                this.setState({
+                    discountedShopItems: discountedShopItems,
+                });
+            })
 
-                        <div className="main__banner--restaurant">
-                            <div className="main__banner--endow">
-                                <h5>Ưu đãi</h5>
-                                <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img src="./assets/images/items/bun-dau.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Bún Đậu Nhà Cuội">Bún Đậu Nhà Cuội</h5>
-                                    <h4>
-                                        <span>30000₫</span>
-                                    </h4>
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // quay về trang chủ
+    handleBackButtonClick = () => {
+        this.setState({
+            selectedProduct: null,
+            selectedShop: null,
+        });
+    };
+    // click to show discount items
+    handleDiscountedItemClick = () => {
+        this.setState({
+            showDiscountedItems: true,
+        });
+    };
+
+
+    render() {
+        const { products, selectedProduct, showDiscountedItems, discountedShopItems } = this.state;
+        //if have discount items
+        if (showDiscountedItems) {
+            return (
+                <>
+                    <div className="discounted-items card-container">
+                        {discountedShopItems.length > 0 ? (
+                            discountedShopItems.map((product) => (
+                                <div key={product.id} className="card main__banner--card">
+                                    <div className="card__image">
+                                        <img
+                                            className="card__image--product-image"
+                                            src={process.env.PUBLIC_URL + '/' + product.image}
+                                            alt="item"
+                                        />
+                                    </div>
+                                    <div className="card__content">
+                                        <h3 className="card__content--name">
+                                            {product.name}
+                                        </h3>
+                                        <p className="card__content--price-old">
+                                            Giá cũ: {product.price}.000₫
+                                        </p>
+                                        <p className="card__content--price-new">
+                                            Giá mới: {product.promotion_price}.000₫
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+                            ))
+                        ) : (
+                            <p>Không có món ăn đang giảm giá</p>
+                        )}
+                    </div>
+                </>
+            );
+        }
+        // list items
+        if (selectedProduct) {
+            return (
+                <>
+                    <div className="menu-container">
+                        <div className="menu-restaurant-tab row">
+                            <div className="item-active col-md-3">
+                                <div className="name-menu">Thực đơn</div>
+                                <div className="menu-restaurant-category">
+                                    <div className="list-category" id="scroll-spy">
+                                        <div className="scrollbar-container ps">
+                                            <div className="item">
+                                                <span id={6731811} title="Món ăn giảm giá" className="item-link active">
+                                                    Món ăn giảm giá
+                                                </span>
+                                            </div>
+                                            <div className="item">
+                                                <span id={5720777} title="Đồ uống" className="item-link ">
+                                                    Đồ uống
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <img src="./assets/images/items/mi-quang.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Mỳ Quảng My Ny">Mỳ Quảng My Ny</h5>
-                                    <h4>
-                                        <span>35000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+                            {/* search items */}
+                            <div className="col-md-4">
+                                <div className="search-items">
+                                    <div className="search-input-container">
+                                        <input
+                                            className="search-find-items"
+                                            type="search"
+                                            name="searchKey"
+                                            placeholder="Tìm món"
+                                        />
+                                        <div className="search-icon">
+                                            <ion-icon name="search-outline"></ion-icon>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/phuc-long.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Phúc Long">Phúc Long</h5>
-                                    <h4>
-                                        <span>34000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+
+                                    <div className="row menu-group mt-auto" id="section-group-menu--1">
+                                        <div className="title-menu">Món Đang Giảm</div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <img src="./assets/images/items/tra-sua.jpeg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa Bobapop">Trà Sữa Bobapop</h5>
-                                    <h4>
-                                        <span>45000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
                                     <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+                                        {products
+                                            .filter((product) => product.promotion_price) // Filter products with promotion_price
+                                            .map((product) => (
+                                                <div className="row show_items">
+                                                    <div className="col-auto item-restaurant-img mt-3" style={{ height: '100%', width: '30%' }}>
+                                                        <img
+                                                            src={process.env.PUBLIC_URL + '/' + product.image}
+                                                            alt="item"
+                                                            style={{ height: '100%', width: '100%' }}
+                                                        />
+                                                    </div>
+                                                    <div className="col item-restaurant-info mt-3">
+                                                        <h2 className="item-restaurant-name">{product.name}</h2>
+                                                    </div>
+                                                    <div className="col-auto item-restaurant-more mt-3">
+                                                        <div className="row">
+                                                            <div className="col-auto product-price">
+                                                                <div className="old-price">
+                                                                    {product.price}
+                                                                    <span className="currency">.000đ</span>
+                                                                </div>
+                                                                <div className="current-price">
+                                                                    {product.promotion_price}
+                                                                    <span className="currency">.000đ</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-auto adding-food-cart txt-right">
+                                                                <div className="btn-adding">+</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
                                     </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/com-xoi.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Cơm Gà Xối Mỡ">Cơm Gà Xối Mỡ</h5>
-                                    <h4>
-                                        <span>30000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
+                                    {/* <div className="row menu-group mt-auto" id="section-group-menu--1">
+                                        <div className="title-menu">Đồ Uống</div>
+                                    </div>
                                     <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/com-tho.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Cơm Thố Tuấn Lộc">Cơm Thố Tuấn Lộc</h5>
-                                    <h4>
-                                        <span>55000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/item1.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Bún bò">Bún bò</h5>
-                                    <h4>
-                                        <span>60000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/item2.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa">Trà Sữa</h5>
-                                    <h4>
-                                        <span>65000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/pizza.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Pizza">Pizza</h5>
-                                    <h4>
-                                        <span>33000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/mi-quang2.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Mì Quảng">Mì Quảng</h5>
-                                    <h4>
-                                        <span>45000</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/tocotoco.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa Tocotoco">Trà Sữa Tocotoco</h5>
-                                    <h4>
-                                        <span>46000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="./assets/images/items/nuoc-xoai-ep.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Nước Xoài Ép">Nước Xoài Ép</h5>
-                                    <h4>
-                                        <span>44000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
+                                        {products
+                                            .filter((product) => product.category === "đồ uống")
+                                            .map((product) => (
+                                                <div className="row show_items">
+                                                    <div className="col-auto item-restaurant-img mt-3" style={{ height: '100%', width: '30%' }}>
+                                                        <img
+                                                            src={process.env.PUBLIC_URL + '/' + product.image}
+                                                            alt="item"
+                                                            style={{ height: '100%', width: '100%' }}
+                                                        />
+                                                    </div>
+                                                    <div className="col item-restaurant-info mt-3">
+                                                        <h2 className="item-restaurant-name">{product.name}</h2>
+                                                    </div>
+                                                    <div className="col-auto item-restaurant-more mt-3">
+                                                        <div className="row">
+                                                            <div className="col-auto product-price">
+                                                                <div className="old-price">
+                                                                    {product.price}
+                                                                    <span className="currency">.00đ</span>
+                                                                </div>
+                                                                <div className="current-price">
+                                                                    {product.promotion_price}
+                                                                    <span className="currency">.00đ</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-auto adding-food-cart txt-right">
+                                                                <div className="btn-adding">+</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                    </div> */}
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <div className="introduction__section">
-                    <section className="now__corporation">
-                        <div className="now__corporation--preservation">
-                            <h2>Đơn hàng của bạn sẽ được bảo quản như thế nào?</h2>
-                            <p className="my-20">
-                                ShopeeFood sẽ bảo quản đơn của bạn bằng túi &amp; thùng để chống nắng
-                                mưa, giữ nhiệt... trên đường đi một cách tốt nhất.
-                            </p>
-                            <div>
-                                <img src="images/Banner.png" alt="img-preservation" style={{ width: '900px', height: '400px' }} />
+
+                </>
+            );
+        }
+
+        // show items in homepage.
+        return (
+            <section className="main__banner">
+                <div className="main__banner--content">
+                    <div className="main__banner--search">
+                        <h1>Đặt Đồ ăn, giao hàng từ 20'...</h1>
+                        <h3 className="my-20">Có 12126 Địa Điểm Ở Đà Nẵng Từ 00:00 - 23:59</h3>
+                        <div className="main__banner--input">
+                            <input type="text" placeholder="Tìm địa điểm, món ăn, địa chỉ..." />
+                            <button className="btn-primary" type="button">
+                                <i className="fas fa-search" />
+                            </button>
+                        </div>
+                        <div className="main__list--search">
+                            <div className="main__list--item">
+                                <h3>All</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Đồ ăn</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Đồ uống</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Đồ chay</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Bánh kem</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Tráng miệng</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Homemade</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Vỉa hè</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Pizza/Burger</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Món gà</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Món lẩu</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Sushi</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Mì phở</h3>
+                            </div>
+                            <div className="main__list--item">
+                                <h3>Cơm hộp</h3>
                             </div>
                         </div>
-                    </section>
-                    {/* <section className="now__corporation">
-                        <div className="now__corporation--preservation merchant-app">
-                            <h2>ShopeeFood Merchant App</h2>
-                            <ul>
-                                <li>
-                                    <h4 className="my-20">
-                                        - <strong>ShopeeFood Merchant</strong> là ứng dụng quản lý đơn
-                                        hàng cho các nhà hàng đối tác của dịch vụ đặt món tận nơi
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        - <strong>ShopeeFood.vn</strong> luôn sẵn sàng hợp tác với các
-                                        nhà hàng, quán ăn, cafe... để mở rộng kinh doanh cũng như gia
-                                        tăng khách hàng. Hãy kết nối vào hệ thống đặt và giao hàng để
-                                        giảm bớt chi phí quản lý, vận hành, marketing, công nghệ...
-                                    </h4>
-                                </li>
-                                <li>
-                                    <h4 className="my-20">
-                                        Đăng ký tham gia: <a href="#!">
-                                            <span className="text-lightblue">tại đây</span>
-                                        </a>
-                                    </h4>
-                                </li>
-                            </ul>
+                        <h3 className="my-20">
+                            Sử dụng App ShopeeFood để có nhiều giảm giá và trải nghiệm tốt hơn
+                        </h3>
+                        <div className="main__banner--app">
+                            <div>
+                                <a href="#!"><img className="app" src="images/AppStore-vn.png" alt="appstore" /></a>
+                            </div>
+                            <div>
+                                <a href="#!"><img className="app" src="images/PlayStore-vn.png" alt="playstore" /></a>
+                            </div>
                         </div>
-                        <div className="img-reg-merchant">
-                            <img src="./assets/images/banner-phone-reg-merchant.png" alt="reg-merchant" />
-                        </div>
-                    </section> */}
-                    {/* <section className="now__corporation">
-                        <div className="now__corporation--preservation merchant-app">
-                            <h2 className="text-blue">
-                                <a href="#!" className="text-orage">ShopeeFood.vn</a> Hợp tác nhân viên
-                                giao nhận - ShopeeFood Driver
-                            </h2>
-                            <ul>
-                                <li>
-                                    <h4 className="my-20">Giúp bạn tăng thu nhập trong thời gian rảnh rỗi</h4>
-                                </li>
-                                <li>
-                                    <h4>
-                                        <strong className="text-orage">ShopeeFood</strong> tìm kiếm hợp tác
-                                        với các cá nhân để thực hiện việc giao hàng, chúng tôi sẽ cung
-                                        cấp ứng dụng (app), 1 số dụng cụ cần thiết để bạn có thể tiếp
-                                        nhận &amp; giao hàng, kiếm thêm thu nhập. Đăng ký tham gia
-                                        <a href="#!" className="fw-bold text-lightblue">tại đây</a> hoặc gửi
-                                        Email qua
-                                        <a href="mailto:tuyendung@gofast.vn" className="text-lightblue fw-bold">tuyendung@gofast.vn</a>
-                                        - hoặc gọi qua số điện thoại (028) 7109 9179.
-                                    </h4>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="img-deliverynow">
-                            <img src="images/bg-deliverynow.png" alt="reg-merchant" />
-                        </div>
-                    </section> */}
-                </div></div>
+                    </div>
+                    <div
+                        className="main__banner--restaurant"
+                    >
+                        {products.map((product) => (
+                            <div
+                                className="main__banner--card"
+                                key={product.id}
+                                onClick={() => this.handleProductClick(product)}
+                            >
+                                <div className="card__image">
+                                    <img src={process.env.PUBLIC_URL + '/' + product.image} alt="item" style={{ height: '100%', width: '100%' }} />
+                                </div>
+                                <br />
+                                <div className="card__content">
+                                    <h5>{product.name}</h5>
+                                    <div className="card__price">
+                                        <h3 style={{ color: 'black' }}>Giá: {product.price}.000₫</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         );
     }
 }
+
 export default Content;

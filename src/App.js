@@ -5,10 +5,6 @@ import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import SignUp from './Components/SignUp/SignUp';
 
-
-
-
-
 function App() {
   return (
     <div >
