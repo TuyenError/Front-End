@@ -64,10 +64,10 @@ class Content extends Component {
                             </h3>
                             <div className="main__banner--app">
                                 <div>
-                                    <a href="#!"><img className="app" src="images/AppStore-vn.png" alt="appstore" /></a>
+                                    <a href="#!"><img className="app" src="/images/AppStore-vn.png" alt="appstore" /></a>
                                 </div>
                                 <div>
-                                    <a href="#!"><img className="app" src="images/PlayStore-vn.png" alt="playstore" /></a>
+                                    <a href="#!"><img className="app" src="/images/PlayStore-vn.png" alt="playstore" /></a>
                                 </div>
                             </div>
                         </div>
