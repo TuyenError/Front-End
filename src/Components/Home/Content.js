@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import ProductDetail from '../Shops/ProductDetail';
 
 class Content extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            products: [],
+        };
+    }
+    componentDidMount() {
+        fetch('http://127.0.0.1:8000/api/get-products')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({
+                    products: data,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     render() {
         return (
             <div>
@@ -71,214 +91,32 @@ class Content extends Component {
                                 </div>
                             </div>
                         </div>
-
                         <div className="main__banner--restaurant">
                             <div className="main__banner--endow">
                                 <h5>Ưu đãi</h5>
                                 <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                             </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img src="/images/items/bun-dau.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Bún Đậu Nhà Cuội">Bún Đậu Nhà Cuội</h5>
-                                    <h4>
-                                        <span>30000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+                            {
+                               this.state.products.map(product=>
+                                <Link to={`ProductDetail/${product.product_id}`} className="main__banner--item">
+                                    <i className="fas fa-circle stocking" />
+                                    <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
+                                    <img src={process.env.PUBLIC_URL + '/' + product.image} />
+                                    <div className="name-and-address">
+                                        <h5 title="Bún Đậu Nhà Cuội">{product.name}</h5>
+                                        <h4>
+                                            <span>{product.price}</span>
+                                        </h4>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <img src="/images/items/mi-quang.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Mỳ Quảng My Ny">Mỳ Quảng My Ny</h5>
-                                    <h4>
-                                        <span>35000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
+                                    <div className="discount text-blue">
+                                        <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
+                                        <div>
+                                           <i className="fas fa-cart-plus mx-2" />
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/phuc-long.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Phúc Long">Phúc Long</h5>
-                                    <h4>
-                                        <span>34000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <img src="/images/items/tra-sua.jpeg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa Bobapop">Trà Sữa Bobapop</h5>
-                                    <h4>
-                                        <span>45000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/com-xoi.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Cơm Gà Xối Mỡ">Cơm Gà Xối Mỡ</h5>
-                                    <h4>
-                                        <span>30000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/com-tho.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Cơm Thố Tuấn Lộc">Cơm Thố Tuấn Lộc</h5>
-                                    <h4>
-                                        <span>55000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/item1.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Bún bò">Bún bò</h5>
-                                    <h4>
-                                        <span>60000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/item2.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa">Trà Sữa</h5>
-                                    <h4>
-                                        <span>65000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/pizza.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Pizza">Pizza</h5>
-                                    <h4>
-                                        <span>33000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/mi-quang2.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Mì Quảng">Mì Quảng</h5>
-                                    <h4>
-                                        <span>45000</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/tocotoco.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Trà Sữa Tocotoco">Trà Sữa Tocotoco</h5>
-                                    <h4>
-                                        <span>46000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="main__banner--item">
-                                <i className="fas fa-circle stocking" />
-                                <h3 className="favorite"><i className="fas fa-thumbs-up mx-1" />Yêu thích</h3>
-                                <img src="/images/items/nuoc-xoai-ep.jpg" alt="item" />
-                                <div className="name-and-address">
-                                    <h5 title="Nước Xoài Ép">Nước Xoài Ép</h5>
-                                    <h4>
-                                        <span>44000₫</span>
-                                    </h4>
-                                </div>
-                                <div className="discount text-blue">
-                                    <div><i className="fas fa-tag icon-discount" />Giảm 10%</div>
-                                    <div>
-                                        <i className="fas fa-cart-plus mx-2" />
-                                    </div>
-                                </div>
-                            </div>
+                                </Link>
+                                )
+                            }
                         </div>
                     </div>
                 </section>
