@@ -2,15 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const Content = () => {
-    const [products, setProducts] = useState([]);
-    const [searchQuery, setSearchQuery] = useState("");
+    const [products, setProducts] = useState([]); // State lưu trữ danh sách sản phẩm
+    const [categories, setCategories] = useState([]); // State lưu trữ danh sách danh mục
+    const [searchQuery, setSearchQuery] = useState(""); // State lưu trữ từ khóa tìm kiếm
+    const [selectedCategory, setSelectedCategory] = useState(""); // State lưu trữ danh mục được chọn
 
     useEffect(() => {
-        // Lấy danh sách sản phẩm từ API khi component được render
+        // Gọi API để lấy danh sách sản phẩm
         fetch('http://127.0.0.1:8000/api/get-products')
             .then((response) => response.json())
             .then((data) => {
-                setProducts(data);
+                setProducts(data); // Cập nhật state products với dữ liệu lấy từ API
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // Gọi API để lấy danh sách danh mục
+        fetch('http://127.0.0.1:8000/api/get-categories')
+            .then((response) => response.json())
+            .then((data) => {
+                setCategories(data); // Cập nhật state categories với dữ liệu lấy từ API
             })
             .catch((error) => {
                 console.log(error);
@@ -18,13 +30,22 @@ const Content = () => {
     }, []);
 
     const handleSearchChange = (event) => {
-        // Xử lý sự kiện thay đổi ô tìm kiếm
-        setSearchQuery(event.target.value);
+        setSearchQuery(event.target.value); // Cập nhật giá trị searchQuery khi người dùng thay đổi nội dung tìm kiếm
     };
 
-    // Lọc danh sách sản phẩm dựa trên từ khóa tìm kiếm
+    const handleCategoryChange = (category_id) => {
+        setSelectedCategory(category_id); // Cập nhật giá trị selectedCategory khi người dùng thay đổi danh mục được chọn
+    };
+
+    // Lọc danh sách sản phẩm dựa trên từ khóa tìm kiếm và danh mục được chọn
+    
+    //const filteredProducts khai báo một biến mới có tên là filteredProducts để lưu trữ danh sách sản phẩm đã được lọc.
     const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        // products.filter(...) áp dụng hàm filter lên mảng products. Nó tạo ra một mảng mới chỉ chứa các phần tử thoả mãn điều kiện lọc được cung cấ
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) && //product.name.toLowerCase().includes(searchQuery.toLowerCase()) kiểm tra xem phiên bản chữ thường của tên product có chứa chuỗi searchQuery chữ thường hay không. Nó thực hiện một tìm kiếm không phân biệt chữ hoa chữ thường bằng cách chuyển đổi cả hai chuỗi về chữ thường.
+        (selectedCategory === "" || product.category_id === selectedCategory) //selectedCategory === "" kiểm tra xem selectedCategory có phải là một chuỗi rỗng hay không. Nếu đúng, điều kiện được coi là true và tất cả các sản phẩm đều thoả mãn phần này của điều kiện.
+        //product.category_id === selectedCategory so sánh category_id của product với selectedCategory. Nếu hai giá trị bằng nhau, điều kiện được coi là true, và sản phẩm thoả mãn phần này của điều kiện. 
+        // Toán tử && kết hợp cả hai điều kiện lại. Chỉ khi cả hai điều kiện đều đúng, sản phẩm mới được bao gồm trong danh sách đã lọc.
     );
 
     return (
@@ -46,56 +67,23 @@ const Content = () => {
                             </button>
                         </div>
                         <div className="main__list--search">
-                            {/* Danh sách các mục tìm kiếm */}
-                            <div className="main__list--item">
-                                <h3>All</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Đồ uống</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Đồ chay</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Bánh kem</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Tráng miệng</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Homemade</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Vỉa hè</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Pizza/Burger</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Món gà</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Món lẩu</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Sushi</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Mì phở</h3>
-                            </div>
-                            <div className="main__list--item">
-                                <h3>Cơm hộp</h3>
-                            </div>
+                            {categories.map((category) => (
+                                <div
+                                    key={category.category_id}
+                                    className="main__list--item"
+                                    onClick={() => handleCategoryChange(category.category_id)}
+                                >
+                                    <h3>{category.name}</h3>
+                                </div>
+                            ))}
                         </div>
                         <h3 className="my-20">
                             Sử dụng App ShopeeFood để có nhiều giảm giá và trải nghiệm tốt hơn
                         </h3>
                         <div className="main__banner--app">
-                            {/* Logo App Store */}
                             <div>
                                 <a href="#!"><img className="app" src="images/AppStore-vn.png" alt="appstore" /></a>
                             </div>
-                            {/* Logo Play Store */}
                             <div>
                                 <a href="#!"><img className="app" src="images/PlayStore-vn.png" alt="playstore" /></a>
                             </div>
@@ -106,7 +94,6 @@ const Content = () => {
                             <h5>Ưu đãi</h5>
                             <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                         </div>
-                        {/* Hiển thị danh sách sản phẩm */}
                         {filteredProducts.map((product) => (
                             <Link to={`ProductDetail/${product.product_id}`} className="main__banner--item">
                                 <i className="fas fa-circle stocking" />

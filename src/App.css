@@ -335,7 +335,7 @@ h6 {
   justify-content: center;
   margin-left: 30px;
   background-color: #fff;
-  height: 85vh;
+  height: 650px;
   overflow: auto;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
@@ -1529,7 +1529,8 @@ input[type="radio"] {
   display: flex;
   font-size: 13px;
 }
-.Description p{
+
+.Description p {
   font-size: 17px;
 }
 
