@@ -9,7 +9,7 @@ function Header() {
                     <div className="navbar--left">
                         <div className="navbar__logo" href="#">
                             <Link to="/">
-                                <img src="logosightglass.png" alt="logo" style={{ width: '45px', height: '45px' }} />
+                                <img src="../logosightglass.png" alt="logo" style={{ width: '45px', height: '45px' }} />
                             </Link>
                         </div>
                         <a className="navbar__location" href="#">
