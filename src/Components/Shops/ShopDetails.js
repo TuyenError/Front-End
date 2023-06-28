@@ -148,7 +148,7 @@ function ShopDetails() {
                             <div className="menu-shop-categories">
                                 <ul className="list-categories">
                                     {
-                                        categories.map(category => 
+                                        categories.map(category =>
                                             <li className="item-categories">
                                                 <a href="#">{category.name}</a>
                                             </li>
@@ -172,46 +172,69 @@ function ShopDetails() {
                                     </div>
                                     <div className="list-products">
                                         {
-                                            categories.map((category)=> 
-                                            <div key={category.id}>
-                                                <h6 className="title-list-product">{category.name}</h6>
-                                                <table className="table">
-                                                <tbody>
-                                                    {
-                                                        products.filter((product)=>product.category_id === category.category_id)
-                                                        .map(product => 
-                                                            <tr>
-                                                                <td>
-                                                                    <a href>
-                                                                        <img className="image-product-lits" src={product.image} alt />
-                                                                    </a>
-                                                                </td>
-                                                                <td className="td-name-product">
-                                                                    {product.name}
-                                                                </td>
-                                                                <td>
-                                                                    {product.promotion_price < product.price ? (
-                                                                        <div>
-                                                                            <p className="old-price">{product.price}</p>
-                                                                            <p className="current-price">{product.promotion_price}</p>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <p className="current-price">{product.price}</p>
-                                                                    )}
-                                                                </td>
-                                                                <td>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
-                                                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-                                                                    </svg>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    }
-                                                </tbody>
-                                                </table>
+                                            categories.map((category) =>
+                                                <div key={category.id}>
+                                                    <h6 className="title-list-product">{category.name}</h6>
+                                                    <table className="table">
+                                                        <tbody>
+                                                            {
+                                                                products.filter((product) => product.category_id === category.category_id)
+                                                                    .map(product =>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <div>
+                                                                                    <button type="button" className="btn-modal" data-bs-toggle="modal" data-bs-target={`#Modal${product.product_id}`}>
+                                                                                        <img className="image-product-lits" src={"../images/products/" + product.image} />
+                                                                                    </button>
+                                                                                    {/* Modal */}
+                                                                                    <div className="modal fade" id={`Modal${product.product_id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                        <div className="modal-dialog">
+                                                                                            <div className="modal-content">
+                                                                                                <div className="modal-body">
+                                                                                                    <div className="image-content">
+                                                                                                        <img className="image-modal" src={"../images/products/" + product.image}/>
+                                                                                                    </div>
+                                                                                                    <div className="info-product-modal">
+                                                                                                        <h5>{product.name}</h5>
+                                                                                                        <p>Giá cũ: {product.price}</p>
+                                                                                                        <p>Giá mới: {product.promotion_price}</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div className="modal-footer">
+                                                                                                    <button type="button" className="btn btn-danger">+  Thêm vào giỏ hàng</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </td>
+                                                                            <td className="td-name-product">
+                                                                                {product.name}
+                                                                            </td>
+                                                                            <td>
+                                                                                {product.promotion_price < product.price ? (
+                                                                                    <div>
+                                                                                        <p className="old-price">{product.price}</p>
+                                                                                        <p className="current-price">{product.promotion_price}</p>
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    <p className="current-price">{product.price}</p>
+                                                                                )}
+                                                                            </td>
+                                                                            <td>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
+                                                                                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                                                                                </svg>
+                                                                            </td>
+                                                                        </tr>
+                                                                    )
+                                                            }
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             )
-                                        };                                      
+                                        }
                                     </div>
                                 </div>
                             </div>

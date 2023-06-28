@@ -21,19 +21,19 @@ class Footer extends Component {
                     <div>
                         <h5>Ứng dụng ShopeeFood</h5>
                         <div className="appstore my-20">
-                            <a href="#!"><img src="images/AppStore-vn.png" alt="appstore" /></a>
+                            <a href="#!"><img src="../images/AppStore-vn.png" alt="appstore" /></a>
                         </div>
                         <div className="googleplay my-20">
-                            <a href="#!"><img src="images/PlayStore-vn.png" alt="playstore" /></a>
+                            <a href="#!"><img src="../images/PlayStore-vn.png" alt="playstore" /></a>
                         </div>
                         <div className="huawei my-20">
-                            <a href="#!"><img src="images/Huawei-gallery-vn.png" alt="huawei" /></a>
+                            <a href="#!"><img src="../images/Huawei-gallery-vn.png" alt="huawei" /></a>
                         </div>
                     </div>
                     <div>
                         <div className="footer__copyright">
                             <div className="footer__copyright--shoppe">
-                                <img src="logosightglass.png" alt="logo" />
+                                <img src="../logosightglass.png" alt="logo" />
                             </div>
                             <p>© 2023 Sightglass Coffee</p>
                             <div class="footer__copyright--icon">
@@ -58,7 +58,7 @@ class Footer extends Component {
                             Email <a href="mailto:sightglasscoffee@gmail.com">sightglasscoffee@gmail.com</a>
                         </p>
                         <div className="img-bocongthuong text-end">
-                            <img src="images/gov_seals1.jpg" alt="bocongthuong" />
+                            <img src="../images/gov_seals1.jpg" alt="bocongthuong" />
                         </div>
                     </div>
                 </div>
