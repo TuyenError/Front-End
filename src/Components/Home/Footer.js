@@ -19,7 +19,7 @@ class Footer extends Component {
                         </ul>
                     </div>
                     <div>
-                        <h5>Ứng dụng ShopeeFood</h5>
+                        <h5>Ứng dụng Sightglass Coffee</h5>
                         <div className="appstore my-20">
                             <a href="#!"><img src="images/AppStore-vn.png" alt="appstore" /></a>
                         </div>

@@ -9,48 +9,63 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!isPasswordVisible);
+    };
+
+    const getPasswordIcon = () => {
+        return isPasswordVisible ? 'lock-open' : 'lock-closed';
+    };
 
     const handleLogin = async (values) => {
+        console.log("value: ", values);
         try {
-            const response = await axios.post('https://63aaa5e7fdc006ba6047e57c.mockapi.io/Users', values); // Sử dụng phương thức POST và gửi dữ liệu values (email và password) đến API Laravel
-            const user = response.data;
+            const response = await axios.post('http://127.0.0.1:8000/api/login/', values);
 
-            if (user) {
-                setLoginError('');
-                setIsLoggedIn(true);
-                navigate('/');
-                alert('Bạn đã đăng nhập tài khoản thành công');
-                localStorage.setItem('isLoggedIn', true);
+            if (response.status === 200) {
+                const user = response.data;
+                if (user) {
+                    setLoginError(''); // Đặt thông báo lỗi đăng nhập thành chuỗi trống
+                    setIsLoggedIn(true); // Đặt trạng thái đăng nhập thành true
+                    navigate('/'); // Điều hướng đến trang chủ
+                    alert('Bạn đã đăng nhập tài khoản thành công'); // Hiển thị thông báo đăng nhập thành công
+                    localStorage.setItem('isLoggedIn', true); // Lưu trạng thái đăng nhập trong localStorage
+                } else {
+                    setLoginError('Mật khẩu hoặc email không tồn tại hoặc mật khẩu và email không đúng.'); // Đặt thông báo lỗi đăng nhập
+                }
             } else {
-                setLoginError('Mật khẩu hoặc email không tồn tại hoặc mật khẩu và email không đúng.');
+                setLoginError('Đã xảy ra lỗi trong quá trình đăng nhập.'); // Đặt thông báo lỗi đăng nhập
             }
         } catch (error) {
             console.log(error);
-            setLoginError('Đã xảy ra lỗi trong quá trình đăng nhập.');
+            setLoginError('Đã xảy ra lỗi trong quá trình đăng nhập.'); // Đặt thông báo lỗi đăng nhập
         }
     };
+
 
     const handleLogout = () => {
         setIsLoggedIn(false);
         localStorage.removeItem('isLoggedIn');
-        navigate('https://63aaa5e7fdc006ba6047e57c.mockapi.io/Users');
+        navigate('http://127.0.0.1:8000/api/users');
     };
 
     return (
         <div>
-            {/* Form Login */}
+            {/* Form Đăng nhập */}
             <div className="formLogin__container">
                 <div className="loginShoppe text-center">
                     <h2 className="formLogin__title">Đăng Nhập</h2>
                     {/* <div className="loginFacebook btnSignUp">
-                        <i className="fab fa-facebook icon-contact" />
-                        Đăng nhập bằng Facebook
-                    </div>
-                    <div className="loginGoogle btnSignUp">
-                        <i className="fab fa-google-plus icon-contact" />
-                        Đăng nhập bằng Google
-                    </div>
-                    <p>Hoặc đăng nhập bằng tài khoản của bạn</p> */}
+              <i className="fab fa-facebook icon-contact" />
+              Đăng nhập bằng Facebook
+          </div>
+          <div className="loginGoogle btnSignUp">
+              <i className="fab fa-google-plus icon-contact" />
+              Đăng nhập bằng Google
+          </div>
+          <p>Hoặc đăng nhập bằng tài khoản của bạn</p> */}
                     <Formik
                         validationSchema={LoginSchema}
                         initialValues={{
@@ -75,9 +90,11 @@ const Login = () => {
                                         required
                                     />
                                     {errors.email && touched.email && <div>{errors.email}</div>}
-                                    <i className="fas fa-lock formLogin--icon" />
+                                    <i className="fas fa-lock formLogin--icon" onClick={togglePasswordVisibility}>
+                                        <ion-icon name={getPasswordIcon()} />
+                                    </i>
                                     <input
-                                        type="password"
+                                        type={isPasswordVisible ? 'text' : 'password'}
                                         name="password"
                                         value={values.password}
                                         onChange={handleChange}

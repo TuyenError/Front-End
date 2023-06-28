@@ -62,19 +62,7 @@ const Header = () => {
                     </div>
                     <div className="navbar--right">
                         <i className="fas fa-shopping-cart" style={{ cursor: 'pointer' }} />
-                        {isLoggedIn ? (
-                            <>
-                                <div className="logout">
-                                    <button onClick={handleLogout} className="logout-button">
-                                        Wellcom!
-                                    </button>
-                                </div>
-                                <div>
-                                    {/* <img src="path_to_user_avatar" alt="User Avatar" className="avatar" /> */}
-                                    <span className="fullName">Cao Tuyến</span>
-                                </div>
-                            </>
-                        ) : (
+                        
                             <>
                                 <div className="login">
                                     <Link to="/Login" className="login--btn">
@@ -87,7 +75,7 @@ const Header = () => {
                                     </Link>
                                 </div>
                             </>
-                        )}
+                        
                         <div className="navbar__menu--toggle">
                             <i className="fa-solid fa-bars" />
                         </div>
