@@ -46,6 +46,7 @@ function ShopDetails() {
             data: null
         })
             .then((res) => {
+                console.log(res)
                 setProducts(res.data)
             })
             .catch((err) => {
@@ -178,7 +179,7 @@ function ShopDetails() {
                                                 <table className="table">
                                                 <tbody>
                                                     {
-                                                        products.filter((product)=>product.category_id === category.category_id)
+                                                        products ?.filter((product)=>product.category_id === category.category_id)
                                                         .map(product => 
                                                             <tr>
                                                                 <td>

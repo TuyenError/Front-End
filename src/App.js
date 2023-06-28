@@ -12,6 +12,7 @@ import ShopDetails from "./Components/Shops/ShopDetails";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ProductDetail from "./Components/Shops/ProductDetail";
 
+
 const queryClient = new QueryClient();
 
 function App() {
