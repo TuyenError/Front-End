@@ -38,7 +38,7 @@ const Content = () => {
     };
 
     // Lọc danh sách sản phẩm dựa trên từ khóa tìm kiếm và danh mục được chọn
-    
+
     //const filteredProducts khai báo một biến mới có tên là filteredProducts để lưu trữ danh sách sản phẩm đã được lọc.
     const filteredProducts = products.filter((product) =>
         // products.filter(...) áp dụng hàm filter lên mảng products. Nó tạo ra một mảng mới chỉ chứa các phần tử thoả mãn điều kiện lọc được cung cấ
@@ -47,12 +47,13 @@ const Content = () => {
         //product.category_id === selectedCategory so sánh category_id của product với selectedCategory. Nếu hai giá trị bằng nhau, điều kiện được coi là true, và sản phẩm thoả mãn phần này của điều kiện. 
         // Toán tử && kết hợp cả hai điều kiện lại. Chỉ khi cả hai điều kiện đều đúng, sản phẩm mới được bao gồm trong danh sách đã lọc.
     );
+    
 
     return (
         <div>
             <section className="main__banner">
-                <div className="main__banner--content">
-                    <div className="main__banner--search">
+                <div className="main__banner--content" style={{ flex: 9 }}>
+                    <div className="main__banner--search" style={{ flex: 4 }}>
                         <h1>Đặt Đồ ăn, giao hàng từ 20'...</h1>
                         <h3 className="my-20">Có 12126 Địa Điểm Ở Đà Nẵng Từ 00:00 - 23:59</h3>
                         <div className="main__banner--input">
@@ -95,16 +96,16 @@ const Content = () => {
                             <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                         </div>
                         {filteredProducts.map((product) => (
-                            <Link to={`ProductDetail/${product.product_id}`} className="main__banner--item">
+                            <Link key={product.product_id} to={`ProductDetail/${product.product_id}`} className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img src="https://bepbanhtiny.com/wp-content/uploads/2023/04/cach-lam-tra-trai-cay-nhiet-doi.jpg" />
+                                <img className="imageproductinhomepage" src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} />
                                 <div className="name-and-price">
                                     <h5 className='nameitemsinhomepage' title="name">
                                         {product.name.length > 25 ? `${product.name.substring(0, 25)}...` : product.name}
                                     </h5>
                                     <h4>
-                                        <span style={{ color: 'black' }}>{product.price}</span>
+                                        <span style={{ color: 'black', marginLeft: '10px' }}>{product.price}₫</span>
                                     </h4>
                                 </div>
                                 <div className="discount text-blue">
