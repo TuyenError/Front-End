@@ -95,7 +95,7 @@ function Shops()  {
                         {
                                 shops.map(shop => 
                                     <ItemCard
-                                    id={shop.shop_id}
+                                    id={shop.id}
                                     name={shop.name}
                                     location = {shop.location}
                                     /> 

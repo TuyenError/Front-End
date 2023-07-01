@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from '../../Api/axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 
 function ShopDetails() {
     let { id } = useParams();
@@ -42,7 +43,7 @@ function ShopDetails() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/get-products/${id}`,
+            url: `http://127.0.0.1:8000/api/get-products-shop/${id}`,
             data: null
         })
             .then((res) => {
@@ -52,6 +53,32 @@ function ShopDetails() {
                 console.log(err)
             });
     }, []);
+
+    const handleAddToCart = (e, $id) => {
+        e.preventDefault();
+
+        const data = {
+            product_id: $id,
+            product_qty: 1,
+        }
+        axios.get('/sanctum/csrf-cookie').then(response => {
+            axios.post(`http://localhost:8000/api/add-to-cart`,data).then(res => {
+                if (res.data.status === 201) {
+                    swal('Success',res.data.message,'success');
+                }
+                else if (res.data.status === 409) {
+                    swal('Warning',res.data.message,'warning')
+                }   
+                else if (res.data.status === 401) {
+                    swal('Error',res.data.message,'error')
+                }
+                else if (res.data.status === 404) {
+                    swal('Warning',res.data.message,'warning')
+                }
+            });
+        });
+    }
+
 
     return (
         <main>
@@ -178,16 +205,16 @@ function ShopDetails() {
                                                     <table className="table">
                                                         <tbody>
                                                             {
-                                                                products.filter((product) => product.category_id === category.category_id)
+                                                                products.filter((product) => product.category_id === category.id)
                                                                     .map(product =>
                                                                         <tr>
                                                                             <td>
                                                                                 <div>
-                                                                                    <button type="button" className="btn-modal" data-bs-toggle="modal" data-bs-target={`#Modal${product.product_id}`}>
+                                                                                    <button type="button" className="btn-modal" data-bs-toggle="modal" data-bs-target={`#Modal${product.id}`}>
                                                                                         <img className="image-product-lits" src={"../images/products/" + product.image} />
                                                                                     </button>
                                                                                     {/* Modal */}
-                                                                                    <div className="modal fade" id={`Modal${product.product_id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div className="modal fade" id={`Modal${product.id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                                         <div className="modal-dialog">
                                                                                             <div className="modal-content">
                                                                                                 <div className="modal-body">
@@ -201,7 +228,7 @@ function ShopDetails() {
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div className="modal-footer">
-                                                                                                    <button type="button" className="btn btn-danger">+  Thêm vào giỏ hàng</button>
+                                                                                                    <button type="submit" onClick={(e) => handleAddToCart(e, product.id)} className="btn btn-danger">+  Thêm vào giỏ hàng</button>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
