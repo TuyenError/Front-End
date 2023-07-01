@@ -197,6 +197,18 @@ a {
 .card {
     margin-left: 5px;
 }
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}
 
 /* section show produc shops */
 
@@ -368,6 +380,7 @@ a {
 }
 .product {
     margin-top: 10px;
+    margin-bottom: 15px;
     background-color: #fff;
 }
 .cart-title p {

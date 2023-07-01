@@ -1,7 +1,52 @@
-import React, { Component } from 'react';
+import React, { Component, useState,useEffect } from 'react';
+import axios from '../../Api/axios';
+import swal from 'sweetalert';
+function Cart() {
 
-class Cart extends Component {
-    render() {
+    const [carts, setCarts] = useState([]);
+    const [quantity, setQuantity] = useState(null)
+
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `http://127.0.0.1:8000/api/get-cart`,
+            data: null
+        })
+            .then((res) => {
+                setCarts(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }, []);
+
+    const handleDecrement = (cart_id) => {
+        setCarts(cart => 
+            cart.map(item => 
+                cart_id === item.id ? {...item, quantity: item.quantity - (item.quantity >1 ? 1:0)}: item
+            )    
+        );
+        updateQuantity(cart_id, "dec");
+    }
+    const handleIncrement = (cart_id) => {
+        setCarts(cart => 
+            cart.map(item => 
+                cart_id === item.id ? {...item, quantity: item.quantity + (item.quantity < 10 ? 1:0)}: item
+            )    
+        );
+        updateQuantity(cart_id, "inc");
+    }
+    const updateQuantity = (cart_id, scope) => {
+        axios.get('/sanctum/csrf-cookie').then(response => {
+            axios.put(`http://127.0.0.1:8000/api/update-quantity/${cart_id}/${scope}`).then( res => {
+                // console.log(res);
+                if (res.data.status === 200) {
+                    swal('Success',res.data.message,'success')
+                }
+
+            });
+        });
+    }
         return (
             <main className='session-cart'>
                 <div className="container">
@@ -20,54 +65,57 @@ class Cart extends Component {
                                             </div>
                                         </div>
                                         <hr />
-                                        <div className="cart-item">
-                                            <div className="cart-item-left">
-                                                <div className="image">
-                                                    <a href="#">
-                                                        <img src="" alt width="80px" height="80px" />
-                                                    </a>
-                                                </div>
-                                                <div className="content">
-                                                    <a href="#" className="title">
-                                                        Cơm tấm sài gòn giá rẻ          
-                                                    </a>
-                                                    <a href="#" className="sku">
-                                                        Được làm bởi chuyên gia ẩm thực nổi tiếng nhất của cửa hàng. Thơm ngon nức mũi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div className="cart-item-middle">
-                                                <p className="current-price">20,000đ</p>
-                                                <p className="action">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
-                                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                                                    </svg>
-                                                    <a href="delete.php">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
-                                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                                        </svg>
-                                                    </a>
-                                                </p>
-                                            </div>
-                                            <div className="cart-item-right">
-                                                <span className="item-quantity-prefix"> Số lượng:</span>
-                                                <form method="post">
-                                                    <div className="selectQuantity">
-                                                        <button type="submit" name="btn-minus<?php echo $quantity['ItemID']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-dash" viewBox="0 0 16 16">
-                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                                            </svg>
-                                                        </button>
-                                                        <input type="text" name="amount" id="amount" defaulvalue={1} defaultValue="1" />
-                                                        <button type="submit" name="btn-plus<?php echo $quantity['ItemID']?>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
-                                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                                            </svg>
-                                                        </button>
+                                        {
+                                            carts.map(cart => 
+                                                <div className="cart-item">
+                                                    <div className="cart-item-left">
+                                                        <div className="image">
+                                                            <a href="#">
+                                                                <img src={"../images/products/" + cart.products.image} alt width="80px" height="80px" />
+                                                            </a>
+                                                        </div>
+                                                        <div className="content">
+                                                            <a href="#" className="title">
+                                                                {cart.products.name}          
+                                                            </a>
+                                                            <a href="#" className="sku">
+                                                                Được làm bởi chuyên gia ẩm thực nổi tiếng nhất của cửa hàng. Thơm ngon nức mũi
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                                    <div className="cart-item-middle">
+                                                        <p className="current-price">{cart.products.promotion_price}đ</p>
+                                                        <p className="action">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
+                                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                                            </svg>
+                                                            <a href="delete.php">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                                                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                                                </svg>
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                    <div className="cart-item-right">
+                                                        <span className="item-quantity-prefix"> Số lượng:</span>
+                                                        <div className="selectQuantity">
+                                                            <button type="submit" onClick={() => handleDecrement(cart.id) } name="btn-minus">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-dash" viewBox="0 0 16 16">
+                                                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                                                </svg>
+                                                            </button>
+                                                            <input type="text" name="amount" id="amount" value={cart.quantity} defaultValue="1" />
+                                                            <button type="submit" onClick={() => handleIncrement(cart.id)} name="btn-plus">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+                                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>          
+                                    
+                                                    </div>
+                                                </div>
+                                            )
+                                        }   
                                     </div>
                                 </div>
                             </div>
@@ -87,12 +135,12 @@ class Cart extends Component {
                                 <hr />
                                 <p>Thông tin đơn hàng </p>
                                 <div className="price-origin">
-                                    <p className="text">Tạm tính (1 sản phẩm)</p>
+                                    <p className="text">Tạm tính (2 sản phẩm)</p>
                                     <p className="price">100,000 đ</p>
                                 </div>
                                 <div className="price-origin">
                                     <p className="text">Phí vận chuyển</p>
-                                    <p className="price">30000 đ</p>
+                                    <p className="price">30,000 đ</p>
                                 </div>
                                 <hr />
                                 <div className="price-origin">
@@ -101,7 +149,7 @@ class Cart extends Component {
                                 </div>
                                 <div className="order">
                                     <button type="button" className="btn btn-warning">
-                                        <a href="./function.php">XÁC NHẬN GIỎ HÀNG</a>
+                                        <a href="./function.php">XÁC NHẬN THANH TOÁN</a>
                                     </button>
                                 </div>
                             </div>
@@ -111,6 +159,5 @@ class Cart extends Component {
             </main>
         );
     }
-}
 
 export default Cart;

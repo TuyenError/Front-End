@@ -14,7 +14,6 @@ function ItemCard(props) {
                     <div className="card-body">
                         <h5 className="card-title">{name}</h5>
                         <p className="card-text">{location}</p>
-                        <p className="card-text"><small className="text-muted">Giảm 10%</small></p>
                     </div>
                 </div>
             </div>

@@ -20,11 +20,12 @@ const Register = () => {
               fullName: "",
               phone: "",
               email: "",
-              username: "",
+              avatar: "",
               password: "",
               confirmPassword: "",
               selectedOption: "personal",
             }}
+            
             onSubmit={(values, actions) => {
               //   registerMutation(values).then(() => {
               //     actions.resetForm();
@@ -77,11 +78,16 @@ const Register = () => {
                     />
                     <i className="far fa-user formLogin--icon" />
                     <input
-                      type="text"
-                      name="username"
-                      placeholder="Username"
+                      type="file"
+                      name="avatar"
                       value={values.username}
                       onChange={handleChange}
+                    />
+                    <img
+                        id="preview-image-before-upload"
+                        src="https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+                        alt="xem trước"
+                        style={{ maxHeight: 250 }}
                     />
                     <i className="fas fa-lock formLogin--icon" />
                     <input
