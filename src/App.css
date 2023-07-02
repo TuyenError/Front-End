@@ -1610,3 +1610,9 @@ input[type="radio"] {
   margin-top: 8px;
   font-family: sans-serif;
 }
+.error-input {
+  color: #ff0000;
+  font-style: italic;
+  margin-top: 5px;
+  font-weight: 600;
+}
