@@ -61,7 +61,7 @@ function ShopDetails() {
             product_id: $id,
             product_qty: 1,
         }
-        axios.get('/sanctum/csrf-cookie').then(response => {
+        
             axios.post(`http://localhost:8000/api/add-to-cart`,data).then(res => {
                 if (res.data.status === 201) {
                     swal('Success',res.data.message,'success');
@@ -76,7 +76,7 @@ function ShopDetails() {
                     swal('Warning',res.data.message,'warning')
                 }
             });
-        });
+        
     }
 
 
