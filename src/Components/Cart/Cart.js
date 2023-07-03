@@ -1,5 +1,5 @@
 import React, { Component, useState,useEffect } from 'react';
-import axios from '../../Api/axios';
+import axios from '../../API/axios';
 import swal from 'sweetalert';
 function Cart() {
 

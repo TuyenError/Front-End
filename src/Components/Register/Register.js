@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../API/axios";
 import { Field, Formik } from "formik";
 import { SignupSchema } from "./schema";
 import { useMutation } from "react-query";
+import swal from "sweetalert";
+import { createBrowserHistory } from 'history';
 
 const Register = () => {
   const navigate = useNavigate();
-
+  const history = createBrowserHistory();
   return (
     <div>
       <div className="formLogin__container">
@@ -25,11 +27,21 @@ const Register = () => {
               confirmPassword: "",
               selectedOption: "personal",
             }}
-            
+
             onSubmit={(values, actions) => {
-              //   registerMutation(values).then(() => {
-              //     actions.resetForm();
-              //   });
+              setTimeout(() => {
+                axios.get('/sanctum/csrf-cookie').then(response => {
+                  axios.post(`http://localhost:8000/api/register/`, values).then(res => {
+                    if (res.data.status === 200) {
+                      localStorage.setItem('auth_token', res.data.token);
+                      localStorage.setItem('auth_name', res.data.username);
+                      swal('Success', res.data.message, 'success');
+                      history.push('/Login')
+                    }
+                  });
+                });
+                actions.resetForm();
+              }, 400);
             }}
           >
             {({
@@ -40,7 +52,6 @@ const Register = () => {
               touched,
               handleBlur,
             }) => {
-              console.log(values);
               return (
                 <form onSubmit={handleSubmit}>
                   <div className="userNamePassword">
@@ -54,7 +65,7 @@ const Register = () => {
                       onBlur={handleBlur}
                     />
                     {errors.fullName && touched.fullName ? (
-                      <div>{errors.fullName}</div>
+                      <div className="error-input">* {errors.fullName}</div>
                     ) : null}
                     <i className="fas fa-phone-alt formLogin--icon" />
                     <input
@@ -66,7 +77,7 @@ const Register = () => {
                       onBlur={handleBlur}
                     />
                     {errors.phone && touched.phone ? (
-                      <div>{errors.phone}</div>
+                      <div className="error-input">* {errors.phone}</div>
                     ) : null}
                     <i className="far fa-envelope formLogin--icon" />
                     <input
@@ -75,7 +86,11 @@ const Register = () => {
                       placeholder="Email"
                       value={values.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {errors.email && touched.email ? (
+                      <div className="error-input">* {errors.email}</div>
+                    ) : null}
                     <i className="far fa-user formLogin--icon" />
                     <input
                       type="file"
@@ -84,10 +99,10 @@ const Register = () => {
                       onChange={handleChange}
                     />
                     <img
-                        id="preview-image-before-upload"
-                        src="https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg"
-                        alt="xem trước"
-                        style={{ maxHeight: 250 }}
+                      id="preview-image-before-upload"
+                      src="https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+                      alt="xem trước"
+                      style={{ maxHeight: 250 }}
                     />
                     <i className="fas fa-lock formLogin--icon" />
                     <input
@@ -96,7 +111,11 @@ const Register = () => {
                       placeholder="Password"
                       value={values.password}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {errors.password && touched.password ? (
+                      <div className="error-input">* {errors.password}</div>
+                    ) : null}
                     <i className="fas fa-lock formLogin--icon" />
                     <input
                       type="password"
@@ -155,7 +174,7 @@ const Register = () => {
                   {/* Rest of the code... */}
 
                   <button type="submit" className="btnSubmit">
-                    Đăng Nhập
+                    Đăng Ký
                   </button>
                 </form>
               );

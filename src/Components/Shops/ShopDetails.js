@@ -1,4 +1,4 @@
-import axios from '../../Api/axios';
+import axios from '../../API/axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import swal from 'sweetalert';

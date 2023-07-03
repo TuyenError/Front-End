@@ -1,17 +1,29 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../Api/axios";
+import axios from "../../API/axios";
+import swal from "sweetalert";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const onLogin = async (values, formikHelper) => {
     try {
-      await axios.post("/login", { ...values });
-      formikHelper.resetForm();
-      navigate("/");
-    } catch (error) {
+      await
+        axios.get('/sanctum/csrf-cookie').then(response => {
+          axios.post("api/login", { ...values })
+            .then(res => {
+              if (res.data.status === 200) {
+                localStorage.setItem('auth_token', res.data.token);
+                localStorage.setItem('auth_name', res.data.username);
+                swal('Success', res.data.message, 'success');
+              }
+            });
+          formikHelper.resetForm();
+          navigate("/");
+        });
+    }
+    catch (error) {
       console.log(error);
     }
   };
