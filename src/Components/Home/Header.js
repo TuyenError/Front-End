@@ -18,7 +18,7 @@ function Header() {
                         </a>
                         <ul className="navbar--categories">
                             <li className="nav--item">
-                                <a className="nav--link active" href="index.html">Đồ Ăn</a>
+                                <Link className="nav--link active" to="/">Đồ Ăn</Link>
                             </li>
                             <li className="nav--item">
                                 <Link className="nav--link" to="shops">Shop</Link>
