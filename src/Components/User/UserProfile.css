@@ -6,23 +6,24 @@
 .userprofilein{
     display: flex;
     width: 100%;
-    justify-content: center ;
+    justify-content: center;
     margin-top: 10vh;
-    gap: 20px;
+    gap: 6%;
+
+
 }
 
-.userprofile .userprofilein .right {
-    width: 50%;
+.userprofile .userprofilein .left{
+    width: 20%;
     /* background-color: aqua; */
-    border: 1px solid Silver;
+    border: 1px solid grey;
     border-radius: 5px;
     min-height: 50vh;
 }
-
-.userprofile .userprofilein .left {
-    width: 10%;
+.userprofile .userprofilein .right {
+    width: 60%;
     /* background-color: aqua; */
-    border: 1px solid Silver;
+    border: 1px solid grey;
     border-radius: 5px;
-    min-height: 40vh;
+    min-height: 50vh;
 }

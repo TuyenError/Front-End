@@ -10,6 +10,7 @@ import Register from "./Components/Register/Register";
 import Shops from "./Components/Shops/Shops";
 import ShopDetails from "./Components/Shops/ShopDetails";
 import Cart from "./Components/Cart/Cart";
+import UserProfile from './Components/User/UserProfile';
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Content />} />
           <Route path="Login" element={<Login />} />
           <Route path="Register" element={<Register />} />
+          <Route path='/user/:activepage' element={<UserProfile/>} />
 
           {/* shop */}
           <Route path="shops" element={<Shops/>} />
