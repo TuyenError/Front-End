@@ -75,7 +75,7 @@ const Content = () => {
                                     onClick={() => handleCategoryChange(category.category_id)}
                                 >
                                     <h3>{category.name}</h3>
-                                </div>
+                                </div>  
                             ))}
                         </div>
                         <h3 className="my-20">

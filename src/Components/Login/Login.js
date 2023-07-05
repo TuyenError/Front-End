@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../API/axios";
+import axios from "../../Api/axios";
 import swal from "sweetalert";
 
 const Login = () => {
@@ -17,10 +17,13 @@ const Login = () => {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('auth_name', res.data.username);
                 swal('Success', res.data.message, 'success');
+                navigate("/");
+              }
+              else if(res.data.status === 401) {
+                swal('Error',res.data.message,'error');
               }
             });
           formikHelper.resetForm();
-          navigate("/");
         });
     }
     catch (error) {

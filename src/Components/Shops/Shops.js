@@ -18,6 +18,7 @@ function Shops()  {
             alert('Xảy ra lỗi');
         })
     },[]);
+    console.log(shops);
     return (
         <section className="main__banner">
                 <div className="main__banner--content">
@@ -93,14 +94,15 @@ function Shops()  {
                             <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                         </div>
                         {
-                                shops.map(shop => 
-                                    <ItemCard
-                                    id={shop.id}
-                                    name={shop.name}
-                                    location = {shop.location}
-                                    /> 
-                                )
-                            }
+                            shops.map(shop => 
+                                <ItemCard
+                                id={shop.id}
+                                image={shop.image}
+                                name={shop.name}
+                                location = {shop.location}
+                                /> 
+                            )
+                        }
                     </div>
                 </div>
             </section>

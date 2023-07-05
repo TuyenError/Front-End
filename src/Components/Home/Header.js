@@ -1,7 +1,55 @@
 import React, { Component } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import axios from '../../Api/axios';
+import swal from 'sweetalert';
 
 function Header() {
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        axios.post(`api/logout`).then(res => {
+            if (res.data.status === 200) {
+                localStorage.removeItem('auth_token',res.data.token);
+                localStorage.removeItem('auth_name',res.data.username);
+                swal("Success",res.data.message,"success");
+            }
+        })
+    }
+    var Nav = '';
+    if (!localStorage.getItem('auth_token')) {
+        Nav = (
+            <div>
+                <div className="login">
+                    <Link to="Login" className="login--btn">Đăng Nhập</Link>
+                </div>
+                <div className="login">
+                    <Link to="Register" className="login--btn">Đăng Ký</Link>
+                </div>
+            </div>
+        )
+    }
+    else{
+        Nav = (
+            <div className="login">
+                <div class="btn-group">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Large button
+                </button>
+                <ul class="dropdown-menu">
+                <li>
+                       <Link to='information'>Thông tin cá nhân</Link>
+                    </li>
+                    <li>
+                       <Link to='cart'> Giỏ hàng của bạn</Link>
+                    </li>
+                    <li onClick={handleLogout}>
+                       Logout
+                    </li>
+                </ul>
+                </div>
+            </div>
+        )
+    }
         return (
             <>
             <nav className="navbar">
@@ -36,12 +84,7 @@ function Header() {
                     </div>
                     <div className="navbar--right">
                         <i className="fas fa-shopping-cart" style={{ cursor: 'pointer' }} />
-                        <div className="login">
-                            <Link to="Login" className="login--btn">Đăng Nhập</Link>
-                        </div>
-                        <div className="login">
-                            <Link to="Register" className="login--btn">Đăng Ký</Link>
-                        </div>
+                        {Nav}
                         <div className="navbar__menu--toggle">
                             <i className="fa-solid fa-bars" />
                         </div>
