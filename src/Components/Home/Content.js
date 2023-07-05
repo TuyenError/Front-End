@@ -6,6 +6,7 @@ const Content = () => {
     const [categories, setCategories] = useState([]); // State lưu trữ danh sách danh mục
     const [searchQuery, setSearchQuery] = useState(""); // State lưu trữ từ khóa tìm kiếm
     const [selectedCategory, setSelectedCategory] = useState(""); // State lưu trữ danh mục được chọn
+    const [filteredProducts, setFilteredProducts] = useState([]); // State lưu trữ danh sách sản phẩm đã được lọc
 
     useEffect(() => {
         // Gọi API để lấy danh sách sản phẩm
@@ -13,11 +14,11 @@ const Content = () => {
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data); // Cập nhật state products với dữ liệu lấy từ API
+                setFilteredProducts(data); // Gán tất cả sản phẩm vào state filteredProducts khi trang được tải lần đầu
             })
             .catch((error) => {
                 console.log(error);
             });
-
         // Gọi API để lấy danh sách danh mục
         fetch('http://127.0.0.1:8000/api/get-categories')
             .then((response) => response.json())
@@ -29,25 +30,26 @@ const Content = () => {
             });
     }, []);
 
+    // Lọc danh sách sản phẩm dựa trên từ khóa tìm kiếm và danh mục được chọn
     const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value); // Cập nhật giá trị searchQuery khi người dùng thay đổi nội dung tìm kiếm
-    };
+        const newSearchQuery = event.target.value;
+        setSearchQuery(newSearchQuery); // Cập nhật giá trị searchQuery khi người dùng thay đổi nội dung tìm kiếm
 
-    const handleCategoryChange = (category_id) => {
-        setSelectedCategory(category_id); // Cập nhật giá trị selectedCategory khi người dùng thay đổi danh mục được chọn
+        //const filteredProducts khai báo một biến mới có tên là filteredProducts để lưu trữ danh sách sản phẩm đã được lọc.
+        const updatedFilteredProducts = products.filter((product) =>
+            product.name.toLowerCase().includes(newSearchQuery.toLowerCase()));
+        setFilteredProducts(updatedFilteredProducts);
     };
 
     // Lọc danh sách sản phẩm dựa trên từ khóa tìm kiếm và danh mục được chọn
-
-    //const filteredProducts khai báo một biến mới có tên là filteredProducts để lưu trữ danh sách sản phẩm đã được lọc.
-    const filteredProducts = products.filter((product) =>
-        // products.filter(...) áp dụng hàm filter lên mảng products. Nó tạo ra một mảng mới chỉ chứa các phần tử thoả mãn điều kiện lọc được cung cấ
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) && //product.name.toLowerCase().includes(searchQuery.toLowerCase()) kiểm tra xem phiên bản chữ thường của tên product có chứa chuỗi searchQuery chữ thường hay không. Nó thực hiện một tìm kiếm không phân biệt chữ hoa chữ thường bằng cách chuyển đổi cả hai chuỗi về chữ thường.
-        (selectedCategory === "" || product.category_id === selectedCategory) //selectedCategory === "" kiểm tra xem selectedCategory có phải là một chuỗi rỗng hay không. Nếu đúng, điều kiện được coi là true và tất cả các sản phẩm đều thoả mãn phần này của điều kiện.
-        //product.category_id === selectedCategory so sánh category_id của product với selectedCategory. Nếu hai giá trị bằng nhau, điều kiện được coi là true, và sản phẩm thoả mãn phần này của điều kiện. 
-        // Toán tử && kết hợp cả hai điều kiện lại. Chỉ khi cả hai điều kiện đều đúng, sản phẩm mới được bao gồm trong danh sách đã lọc.
-    );
-    
+    const handleCategoryChange = (category_id, category_name) => {
+        setSelectedCategory(category_id);
+        setSearchQuery(category_name); // Thay đổi giá trị của searchQuery thành tên danh mục
+        const updatedFilteredProducts = products.filter((product) =>
+            (category_id === "" || product.category_id === category_id)
+        );
+        setFilteredProducts(updatedFilteredProducts);
+    };
 
     return (
         <div>
@@ -71,8 +73,8 @@ const Content = () => {
                             {categories.map((category) => (
                                 <div
                                     key={category.category_id}
-                                    className="main__list--item"
-                                    onClick={() => handleCategoryChange(category.category_id)}
+                                    className={`main__list--item ${selectedCategory === category.category_id ? "active" : ""}`}
+                                    onClick={() => handleCategoryChange(category.category_id, category.name)}
                                 >
                                     <h3>{category.name}</h3>
                                 </div>
@@ -99,10 +101,10 @@ const Content = () => {
                             <Link key={product.product_id} to={`ProductDetail/${product.product_id}`} className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img className="imageproductinhomepage" src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} />
+                                <img className="imageproductinhomepage" src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} alt='hinh' />
                                 <div className="name-and-price">
                                     <h5 className='nameitemsinhomepage' title="name">
-                                        {product.name.length > 25 ? `${product.name.substring(0, 25)}...` : product.name}
+                                        {product.name.length > 20 ? `${product.name.substring(0, 20)}...` : product.name}
                                     </h5>
                                     <h4>
                                         <span style={{ color: 'black', marginLeft: '10px' }}>{product.price}₫</span>
