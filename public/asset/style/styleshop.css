@@ -311,6 +311,10 @@ a {
 .info-product-modal p {
     margin-bottom: 2px;
 }
+.btn-close {
+    width: 20px;
+}
+
 .modal-footer {
     justify-content: center;
 }
@@ -402,9 +406,9 @@ a {
     padding: 10px 0;
 }
 .cart-item-left {
-    display: table-cell;
+    display: flex;
     vertical-align: top;
-    width: calc(100% - 156px - 139px);
+    /* width: calc(100% - 156px - 139px); */
     padding-left: 10px;
 }
 .image {
@@ -547,4 +551,84 @@ a {
 }
 .selectQuantity button:hover {
     background-color: #909090;
+}
+.icon-cart {
+    color: #000000;
+    cursor: pointer;
+}
+.price-item {
+    color: #f57224;
+    font-size: 20px;
+}
+.order .btn a {
+    color: #fff;
+}
+.customer-name {
+    margin-left: 8px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.bi-pencil {
+    margin-left: 20px;
+    cursor: pointer;
+}
+.input-address {
+    border: none;
+    width: 100%;
+    padding-left: 10px;
+}
+
+/* Model select option payment */
+.select-option-payment {
+    width: auto;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    margin: 10px;
+}
+.cart-top {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 4px;
+}
+.cart-top .text {
+    padding-left: 15px;
+}
+.cart-top .option{  
+    margin-left: 240px;
+}
+
+.cart-bottom p {
+    font-size: 12px;
+    color: #757575;
+    padding-left: 12px;
+}
+
+.cart-bottom{
+    font-size: 12px;
+    color: #757575;
+    padding-left: 12px;
+
+}
+.btn-primary {
+    margin-bottom: 10px;
+}
+.cart-top .option-card{
+    margin-left: 245px;
+}
+.modal-footer-cart {
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-footer-cart button {
+    width: 150px;
+}
+/* cart payment */
+
+input[type="radio"] {
+    display: block;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../API/axios";
+import axios from "../../Api/axios";
 import { Field, Formik } from "formik";
 import { SignupSchema } from "./schema";
 import { useMutation } from "react-query";
