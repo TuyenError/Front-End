@@ -117,7 +117,6 @@ h6 {
   margin: 20px 0 !important;
 }
 
-
 .text-center {
   display: flex;
   align-self: start;
@@ -126,7 +125,7 @@ h6 {
 
 .text-end {
   display: flex;
-  align-items: end;
+  align-items:flex-end;
   flex-direction: column;
 }
 
@@ -380,8 +379,8 @@ h6 {
   border: 1px solid #ccc;
   border-radius: 10px;
   width: 27%;
-  min-width: 244.450px;
-  height: 365px;
+  min-width: 200px;
+  height: 295px;
   float: left;
   animation: slideInRight 0.5s ease-in-out forwards;
   margin: 15px 0 0 25px;
@@ -733,7 +732,7 @@ h6 {
 
 .text-end {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   flex-direction: column;
 }
 
@@ -1117,7 +1116,7 @@ h6 {
 
 .text-end {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   flex-direction: column;
 }
 
@@ -1552,8 +1551,8 @@ input[type="radio"] {
 }
 
 .imageproductinhomepage {
-  width: 285px;
-  height: 270px;
+  width: 200px;
+  height: 200px;
 }
 .rating-product{
   margin-top: 10px;
@@ -1605,7 +1604,7 @@ input[type="radio"] {
 }
 
 .name{
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   margin-top: 8px;
   font-family: sans-serif;
