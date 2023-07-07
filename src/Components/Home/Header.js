@@ -1,9 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import axios from '../../Api/axios';
 import swal from 'sweetalert';
+import { useNavigate } from "react-router-dom";
+import Footer from './Footer';
 
 function Header() {
+
+    const navigate = useNavigate();
+    const [user, setUser] = useState([]);
+
+    useEffect(()=> {
+        axios({
+            method: 'GET',
+            url: `api/get-one-user`,
+            data: null
+        })
+        .then((res)=> {
+            setUser(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+            alert('Xảy ra lỗi');
+        })
+    },[]);
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -12,13 +32,14 @@ function Header() {
                 localStorage.removeItem('auth_token',res.data.token);
                 localStorage.removeItem('auth_name',res.data.username);
                 swal("Success",res.data.message,"success");
+                navigate('/');
             }
         })
     }
     var Nav = '';
     if (!localStorage.getItem('auth_token')) {
         Nav = (
-            <div>
+            <div className='account'>
                 <div className="login">
                     <Link to="Login" className="login--btn">Đăng Nhập</Link>
                 </div>
@@ -29,26 +50,53 @@ function Header() {
         )
     }
     else{
-        Nav = (
-            <div className="login">
-                <div class="btn-group">
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Large button
-                </button>
-                <ul class="dropdown-menu">
-                <li>
-                       <Link to='information'>Thông tin cá nhân</Link>
-                    </li>
-                    <li>
-                       <Link to='cart'> Giỏ hàng của bạn</Link>
-                    </li>
-                    <li onClick={handleLogout}>
-                       Logout
-                    </li>
-                </ul>
+        if (user.role_id === 2) {
+            Nav = (
+                <div className="login">
+                    <div class="btn-group">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {user.name}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                           <Link to='information'>Thông tin cá nhân</Link>
+                        </li>
+                        <li>
+                           <Link to='adminShow'>Cửa hàng của bạn</Link>
+                        </li>
+                        <li>
+                           <Link to='cart'> Giỏ hàng của bạn</Link>
+                        </li>
+                        <li>
+                            <a onClick={handleLogout}>Logout</a>
+                        </li>
+                    </ul>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+        else {
+            Nav = (
+                <div className="login">
+                    <div class="btn-group">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {user.name}
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li>
+                           <Link to='information'>Thông tin cá nhân</Link>
+                        </li>
+                        <li>
+                           <Link to='cart'> Giỏ hàng của bạn</Link>
+                        </li>
+                        <li>
+                            <a onClick={handleLogout}>Logout</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            )
+        }
     }
         return (
             <>
@@ -92,6 +140,7 @@ function Header() {
                 </div>
             </nav>
             <Outlet/>
+            <Footer/>
             </>
         );
     }

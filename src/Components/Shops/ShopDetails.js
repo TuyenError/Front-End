@@ -13,11 +13,11 @@ function ShopDetails() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/api/get-shops/${id}`,
+            url: `api/get-shops/${id}`,
             data: null
         })
             .then((res) => {
-                setShopDetails(res.data)
+                setShopDetails(res.data);
             })
             .catch((err) => {
                 console.log(err)
@@ -32,7 +32,7 @@ function ShopDetails() {
             data: null
         })
             .then((res) => {
-                setCategories(res.data)
+                setCategories(res.data);
             })
             .catch((err) => {
                 console.log(err)
@@ -50,7 +50,7 @@ function ShopDetails() {
                 setProducts(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
             });
     }, []);
 
@@ -79,13 +79,12 @@ function ShopDetails() {
         });
     }
 
-
     return (
         <main>
             <div className="container">
                 <div className="details-shop">
                     <div className="img-shops">
-                        <img src="https://images.foody.vn/res/g73/727405/prof/s640x400/file_restaurant_photo_txl9_16309-d68c31c8-210907081807.jpg" alt="Cơm tấm" />
+                        {/* <img src={shopDetails.users.avatar} alt={shopDetails.users.name} /> */}
                     </div>
                     <div className="details-shops-info">
                         <div className="kind-shops">
@@ -250,7 +249,7 @@ function ShopDetails() {
                                                                                 )}
                                                                             </td>
                                                                             <td>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
+                                                                                <svg onClick={(e) => handleAddToCart(e, product.id)} xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
                                                                                     <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                                                                                 </svg>
                                                                             </td>

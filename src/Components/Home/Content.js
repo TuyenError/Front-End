@@ -63,17 +63,17 @@ const Content = () => {
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                             />
-                            <button className="btn-primary" type="button">
+                            <button className="btn-primary" style={{marginBottom: 0}} type="button">
                                 <i className="fas fa-search" />
                             </button>
                         </div>
                         <div className="main__list--search">
                             {categories.map((category) => (
                                 <div
-                                    key={category.category_id}
-                                    className="main__list--item"
-                                    onClick={() => handleCategoryChange(category.category_id)}
-                                >
+                                    key={category.id}
+                                    className={`main__list--item ${selectedCategory === category.id ? "active" : ""}`}
+                                    onClick={() => handleCategoryChange(category.id, category.name)}
+                                    >
                                     <h3>{category.name}</h3>
                                 </div>  
                             ))}
@@ -96,10 +96,10 @@ const Content = () => {
                             <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                         </div>
                         {filteredProducts.map((product) => (
-                            <Link key={product.product_id} to={`ProductDetail/${product.product_id}`} className="main__banner--item">
+                            <Link key={product.id} to={`ProductDetail/${product.id}`} className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
-                                <img className="imageproductinhomepage" src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} />
+                                <img className="imageproductinhomepage object-fit-cover"  src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} alt='hinh' />
                                 <div className="name-and-price">
                                     <h5 className='nameitemsinhomepage' title="name">
                                         {product.name.length > 25 ? `${product.name.substring(0, 25)}...` : product.name}

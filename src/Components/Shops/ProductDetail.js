@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../Api/axios';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 function ProductDetail() {
     // Lấy id từ URL bằng useParams
@@ -66,13 +67,30 @@ function ProductDetail() {
             });
     }, [category_id]);
 
-    // Slider suggested products
-    // const settings = {
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     prevArrow: <button type="button" className="slick-prev">Previous</button>,
-    //     nextArrow: <button type="button" className="slick-next">Next</button>,
-    //   };
+    const handleAddToCart = (e, $id) => {
+        e.preventDefault();
+
+        const data = {
+            product_id: $id,
+            product_qty: 1,
+        }
+        axios.get('/sanctum/csrf-cookie').then(response => {
+            axios.post(`http://localhost:8000/api/add-to-cart`,data).then(res => {
+                if (res.data.status === 201) {
+                    swal('Success',res.data.message,'success');
+                }
+                else if (res.data.status === 409) {
+                    swal('Warning',res.data.message,'warning')
+                }   
+                else if (res.data.status === 401) {
+                    swal('Error',res.data.message,'error')
+                }
+                else if (res.data.status === 404) {
+                    swal('Warning',res.data.message,'warning')
+                }
+            });
+        });
+    }
 
     return (
         <div className="container">
@@ -137,6 +155,8 @@ function ProductDetail() {
                         <span className="number-rating">8</span>
                         được đánh giá trên Sightlass-Coffee
                     </div>
+                    <br></br>
+                    <button type="submit" onClick={(e) => handleAddToCart(e, product.id)} className="btn btn-danger">+  Thêm vào giỏ hàng</button>
                     <div className="utility-shop">
                         <div className="utility-item">
                             <div className="utility-title">Phí dịch vụ</div>
@@ -158,8 +178,8 @@ function ProductDetail() {
                 <h2>Sản phẩm được gợi ý</h2>
                 <div className="product-list">
                     {productFlowcategory.map((relatedProduct) => (
-                        <div className="product-item" key={relatedProduct.product_id}>
-                            <Link to={`/ProductDetail/${relatedProduct.product_id}`}>
+                        <div className="product-item" key={relatedProduct.id}>
+                            <Link to={`/ProductDetail/${relatedProduct.id}`}>
                                 <img src={process.env.PUBLIC_URL + "/images/products/" + (relatedProduct.image)} alt="Product" />
                                 <h3 className="name">{relatedProduct.name}</h3>
                                 <span>{relatedProduct.price}₫</span>
