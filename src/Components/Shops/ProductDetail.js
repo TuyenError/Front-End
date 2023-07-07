@@ -65,6 +65,31 @@ function ProductDetail() {
             });
     }, [category_id]);
 
+    const handleAddToCart = (e, $id) => {
+        e.preventDefault();
+
+        const data = {
+            product_id: $id,
+            product_qty: 1,
+        }
+        axios.get('/sanctum/csrf-cookie').then(response => {
+            axios.post(`http://localhost:8000/api/add-to-cart`,data).then(res => {
+                if (res.data.status === 201) {
+                    swal('Success',res.data.message,'success');
+                }
+                else if (res.data.status === 409) {
+                    swal('Warning',res.data.message,'warning')
+                }   
+                else if (res.data.status === 401) {
+                    swal('Error',res.data.message,'error')
+                }
+                else if (res.data.status === 404) {
+                    swal('Warning',res.data.message,'warning')
+                }
+            });
+        });
+    }
+
     return (
         <div className="container">
             <div className="details-product">
