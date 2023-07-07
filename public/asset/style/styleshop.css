@@ -632,3 +632,9 @@ a {
 input[type="radio"] {
     display: block;
 }
+.account {
+    display: flex;
+}
+td .bi-cart4 {
+    cursor: pointer;
+}

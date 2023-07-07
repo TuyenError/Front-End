@@ -65,7 +65,7 @@ const Content = () => {
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                             />
-                            <button className="btn-primary" type="button">
+                            <button className="btn-primary" style={{marginBottom: 0}} type="button">
                                 <i className="fas fa-search" />
                             </button>
                         </div>
@@ -98,7 +98,7 @@ const Content = () => {
                             <a href="#!"><i className="fas fa-th-large" />Xem Tất Cả</a>
                         </div>
                         {filteredProducts.map((product) => (
-                            <Link key={product.product_id} to={`ProductDetail/${product.product_id}`} className="main__banner--item">
+                            <Link key={product.id} to={`ProductDetail/${product.id}`} className="main__banner--item">
                                 <i className="fas fa-circle stocking" />
                                 <h3 className="favorite"><i className="fas fa-thumbs-up" />Yêu thích</h3>
                                 <img className="imageproductinhomepage" src={process.env.PUBLIC_URL + "/images/products/" + (product.image)} alt='hinh' />

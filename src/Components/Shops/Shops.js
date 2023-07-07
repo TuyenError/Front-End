@@ -18,7 +18,6 @@ function Shops()  {
             alert('Xảy ra lỗi');
         })
     },[]);
-    console.log(shops);
     return (
         <section className="main__banner">
                 <div className="main__banner--content">
@@ -97,7 +96,7 @@ function Shops()  {
                             shops.map(shop => 
                                 <ItemCard
                                 id={shop.id}
-                                image={shop.image}
+                                image={shop.users.avatar}
                                 name={shop.name}
                                 location = {shop.location}
                                 /> 

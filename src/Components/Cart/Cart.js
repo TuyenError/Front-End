@@ -1,23 +1,30 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from '../../Api/axios';
 import { useNavigate } from 'react-router-dom';
+
 function Cart() {
 
     const [carts, setCarts] = useState([]);
-    const [selectedValue, setSelectedValue] = useState('');
+    const [radioValue, setRadioValue] = useState('');
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setSelectedValue(event.target.value);
+    const handleRadioChange = (event) => {
+        setRadioValue(event.target.value);
     };
 
+    let totalPrice = 0;
+    carts.map(cart =>
+        totalPrice += (cart.products.promotion_price * cart.quantity)
+    );
+
     const handlePayment = () => {
-        axios.post(`api/payment/`).then(res => {
+        axios.post(`api/payment/${radioValue}/${totalPrice}`).then(res => {
             if (res.data.code === '00') {
                 var url = res.data.data;
-                navigate(url);
+                window.open(url,'_blank');
             }
         });
+        console.log(radioValue, totalPrice);
     }
 
     useEffect(() => {
@@ -33,11 +40,6 @@ function Cart() {
                 console.log(err)
             });
     }, []);
-
-    let totalPrice = 0;
-    carts.map(cart =>
-        totalPrice += (cart.products.promotion_price * cart.quantity)
-    )
 
     const handleDecrement = (cart_id) => {
         setCarts(cart =>
@@ -168,7 +170,9 @@ function Cart() {
                             </div>
                             <div className="price-origin">
                                 <p className="text">Phí vận chuyển</p>
-                                <p className="price">30000 đ</p>
+                                <p className="price">
+                                    {totalPrice>0? 30000: 0} đ
+                                </p>
                             </div>
                             <hr />
                             <div className="price-origin">
@@ -192,7 +196,7 @@ function Cart() {
                                                 </div>
                                                 <div className="modal-body">
                                                     <div className='option-payment'>
-                                                        <div className="select-option-payment">
+                                                        <div className="select-option-payment" for="cash" >
                                                             <div className="cart-top">
                                                                 <span>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-cash-coin" viewBox="0 0 16 16">
@@ -204,14 +208,14 @@ function Cart() {
                                                                 </span>
                                                                 <span className="text">Thanh toán khi nhận hàng</span>
                                                                 <span className="option">
-                                                                    <input type="radio" onChange={handleChange} id="cash" name="method-payment" defaultValue="cash" />
+                                                                    <input type="radio" onChange={handleRadioChange} id="cash" name="method-payment" defaultValue="cash" />
                                                                 </span>
                                                             </div>
                                                             <div className="cart-bottom">
                                                                 <p>Thanh toán khi nhận hàng</p>
                                                             </div>
                                                         </div>
-                                                        <div className="select-option-payment">
+                                                        <div className="select-option-payment" for="momo">
                                                             <div className="cart-top">
                                                                 <span>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-credit-card" viewBox="0 0 16 16">
@@ -221,14 +225,14 @@ function Cart() {
                                                                 </span>
                                                                 <span className="text">Thanh toán bằng MOMO</span>
                                                                 <span className="option-card">
-                                                                    <input type="radio" onChange={handleChange} id="momo" name="method-payment" defaultValue="momo" />
+                                                                    <input type="radio" onChange={handleRadioChange} id="momo" name="method-payment" defaultValue="momo" />
                                                                 </span>
                                                             </div>
                                                             <div class="cart-bottom">
                                                                 <p>Chọn để thêm thẻ</p>
                                                             </div>
                                                         </div>
-                                                        <div className="select-option-payment">
+                                                        <div className="select-option-payment" for="vnpay">
                                                             <div className="cart-top">
                                                                 <span>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-credit-card" viewBox="0 0 16 16">
@@ -238,7 +242,7 @@ function Cart() {
                                                                 </span>
                                                                 <span className="text">Thanh toán bằng VNpay</span>
                                                                 <span className="option-card">
-                                                                    <input type="radio" onChange={handleChange} id="vnpay" name="method-payment" defaultValue="vnpay" />
+                                                                    <input type="radio" onChange={handleRadioChange} id="vnpay" name="method-payment" defaultValue="vnpay" />
                                                                 </span>
                                                             </div>
                                                             <div class="cart-bottom">

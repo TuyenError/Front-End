@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../Api/axios';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 function ProductDetail() {
     // Lấy id từ URL bằng useParams
@@ -126,6 +127,8 @@ function ProductDetail() {
                         <span className="number-rating">8</span>
                         được đánh giá trên Sightlass-Coffee
                     </div>
+                    <br></br>
+                    <button type="submit" onClick={(e) => handleAddToCart(e, product.id)} className="btn btn-danger">+  Thêm vào giỏ hàng</button>
                     <div className="utility-shop">
                         <div className="utility-item">
                             <div className="utility-title">Phí dịch vụ</div>
@@ -147,8 +150,8 @@ function ProductDetail() {
                 <h2>Những sản phẩm được gợi ý</h2>
                 <div className="product-list">
                     {productFlowcategory.map((relatedProduct) => (
-                        <div className="product-item" key={relatedProduct.product_id}>
-                            <Link to={`/ProductDetail/${relatedProduct.product_id}`}>
+                        <div className="product-item" key={relatedProduct.id}>
+                            <Link to={`/ProductDetail/${relatedProduct.id}`}>
                                 <img src={process.env.PUBLIC_URL + "/images/products/" + (relatedProduct.image)} alt="Product" />
                                 <h3 className="name">
                                 {relatedProduct.name.length > 20 ? `${relatedProduct.name.substring(0, 20)}...` : relatedProduct.name}

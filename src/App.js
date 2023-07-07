@@ -12,6 +12,10 @@ import ShopDetails from "./Components/Shops/ShopDetails";
 import Cart from "./Components/Cart/Cart";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ProductDetail from "./Components/Shops/ProductDetail";
+import AdminShow from "./Components/AdminShop/AdminShow";
+import AddProduct from "./Components/AdminShop/AddProduct";
+import Navbar from "./Components/AdminShop/navbar";
+import Thankfull from "./Components/ThankPage/Thankfull";
 
 const queryClient = new QueryClient();
 
@@ -19,19 +23,28 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <Header />
         <Routes>
-          <Route path="/" element={<Content />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="Register" element={<Register />} />
 
-          {/* shop */}
-          <Route path="shops" element={<Shops/>} />
-          <Route path="shopDetails/:id" element={<ShopDetails/>} />
-          <Route path="ProductDetail/:id" element={<ProductDetail/>}/>
-          <Route path="cart" element={<Cart/>} />
+          <Route exact path="/" element={<Header/>}>
+            <Route path="/" element={<Content />} />
+            <Route path="Login" element={<Login />} />
+            <Route path="Register" element={<Register />} />
+
+            {/* shop */}
+            <Route path="shops" element={<Shops/>} />
+            <Route path="shopDetails/:id" element={<ShopDetails/>} />
+            <Route path="ProductDetail/:id" element={<ProductDetail/>}/>
+            <Route path="cart" element={<Cart/>} />
+            <Route path="thankfull" element={<Thankfull/>} />
+          </Route>
+
+          {/* Admin shops */}
+          <Route exact path="/" element={<Navbar/>}> 
+            <Route path="adminShow" element={<AdminShow/>} />
+            <Route path="addProduct" element={<AddProduct/>} />
+          </Route>
+
         </Routes>
-        <Footer />
       </Router>
     </QueryClientProvider>
   );
