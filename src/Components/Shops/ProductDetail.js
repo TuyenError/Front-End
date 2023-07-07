@@ -53,9 +53,7 @@ function ProductDetail() {
             });
     }, [id]);
 
-
     useEffect(() => {
-        // Fetch sản phẩm dựa trên id từ API
         // Gọi API để lấy danh sách danh mục
         fetch(`http://127.0.0.1:8000/api/get-products-category/${category_id}`)
             .then((response) => response.json())
@@ -96,7 +94,7 @@ function ProductDetail() {
         <div className="container">
             <div className="details-product">
                 <div className="img-product">
-                    <img className='imgDetail' src={process.env.PUBLIC_URL + "/images/products/" + (product && product.image)} alt="image" />
+                    <img className='imgDetail' src={process.env.PUBLIC_URL + "/images/products/" + (product && product.image)} alt="hinh" />
                 </div>
                 <div className="details-shops-info" style={{ marginRight: '50px' }}>
                     <div className="kind-product">
@@ -107,7 +105,6 @@ function ProductDetail() {
                         <span className="old-price-product" style={{ textDecoration: textDecoration ? 'line-through' : 'none' }}>
                             {product && product.price}₫
                         </span>
-
                         {promotionPrice && (
                             <span className="promotion-price">
                                 {promotionPrice}₫
@@ -175,20 +172,21 @@ function ProductDetail() {
                 </div>
             </div>
             <div className="suggested product">
-                <h2>Sản phẩm được gợi ý</h2>
+                <h2>Những sản phẩm được gợi ý</h2>
                 <div className="product-list">
                     {productFlowcategory.map((relatedProduct) => (
                         <div className="product-item" key={relatedProduct.id}>
                             <Link to={`/ProductDetail/${relatedProduct.id}`}>
                                 <img src={process.env.PUBLIC_URL + "/images/products/" + (relatedProduct.image)} alt="Product" />
-                                <h3 className="name">{relatedProduct.name}</h3>
-                                <span>{relatedProduct.price}₫</span>
+                                <h3 className="name">
+                                {relatedProduct.name.length > 20 ? `${relatedProduct.name.substring(0, 20)}...` : relatedProduct.name}
+                                </h3>
+                                <span className="price">{relatedProduct.price}₫</span>
                             </Link>
                         </div>
                     ))}
                 </div>
             </div>
-            
         </div>
     );
 }
