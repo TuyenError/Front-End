@@ -72,9 +72,9 @@ const Content = () => {
                         <div className="main__list--search">
                             {categories.map((category) => (
                                 <div
-                                    key={category.category_id}
-                                    className={`main__list--item ${selectedCategory === category.category_id ? "active" : ""}`}
-                                    onClick={() => handleCategoryChange(category.category_id, category.name)}
+                                    key={category.id}
+                                    className={`main__list--item ${selectedCategory === category.id ? "active" : ""}`}
+                                    onClick={() => handleCategoryChange(category.id, category.name)}
                                 >
                                     <h3>{category.name}</h3>
                                 </div>  
