@@ -119,3 +119,18 @@ span a {
 .modal-update {
     padding: 10px;
 }
+.content-thank {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.content-thank .bi {
+    background-color: orange;
+    border-radius: 100px;
+    padding: 20px;
+}
+.name-success {
+    font-size: 40px;
+    color: red;
+}

@@ -36,7 +36,7 @@ function Navbar() {
                             </div>
                             <ul>
                                 <li>
-                                    <a href>Tất cả đơn hàng</a>
+                                    <Link to='order'>Tất cả đơn hàng</Link>
                                 </li>
                                 <li>
                                     <a href>Đơn hủy</a>
