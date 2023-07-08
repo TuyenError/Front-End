@@ -16,6 +16,9 @@ import AdminShow from "./Components/AdminShop/AdminShow";
 import AddProduct from "./Components/AdminShop/AddProduct";
 import Navbar from "./Components/AdminShop/navbar";
 import Thankfull from "./Components/ThankPage/Thankfull";
+import Order from "./Components/AdminShop/Order";
+import Chinhsach from "./Components/ortherPage/chinhsach";
+// import AdminPage from "./Components/Admin/Adminpage";
 
 const queryClient = new QueryClient();
 
@@ -36,12 +39,16 @@ function App() {
             <Route path="ProductDetail/:id" element={<ProductDetail/>}/>
             <Route path="cart" element={<Cart/>} />
             <Route path="thankfull" element={<Thankfull/>} />
+            <Route path="chinhsach" element={<Chinhsach/>} />
           </Route>
+
+          {/* <Route path="admin" element={<AdminPage/>} /> */}
 
           {/* Admin shops */}
           <Route exact path="/" element={<Navbar/>}> 
             <Route path="adminShow" element={<AdminShow/>} />
             <Route path="addProduct" element={<AddProduct/>} />
+            <Route path="order" element={<Order/>} />
           </Route>
 
         </Routes>

@@ -281,7 +281,7 @@ h6 {
   overflow: auto;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
-  margin-top: 10px;
+  top: -20px;
 }
 
 .main__banner--input {
@@ -1151,7 +1151,7 @@ h6 {
 .navbar {
   background-color: #fff;
   width: 100%;
-  position: fixed;
+  position: relative;
   padding: 15px 30px;
   z-index: 1000;
   top: 0;
@@ -1322,6 +1322,7 @@ h6 {
 
 /* footer */
 footer {
+  position: relative;
   padding: 30px 75px;
   background-color: #f2f2f2;
   width: 100%;

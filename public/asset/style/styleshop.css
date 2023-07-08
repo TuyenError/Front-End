@@ -638,3 +638,26 @@ input[type="radio"] {
 td .bi-cart4 {
     cursor: pointer;
 }
+
+/* other page */
+.header__title{
+    width: 100%;
+    height: 80px;
+    background-color: skyblue;
+    text-align: center;
+    padding-top: 22px;
+   
+
+}
+.detail__content {
+    padding-left: 100px;
+}
+.detail__content u{
+    color: red;
+    font-size: 30px;
+  
+    
+}
+.detail__content p{
+    margin-top: 40px;
+}

@@ -126,7 +126,7 @@ function Header() {
                                 <a className="nav--link" href="#">Sản Phẩm Hot</a>
                             </li>
                             <li className="nav--item">
-                                <a className="nav--link" href="#">Liên Hệ</a>
+                                <Link className="nav--link" to="chinhsach">Chính sách</Link>
                             </li>
                         </ul>
                     </div>

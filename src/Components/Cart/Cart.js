@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from '../../Api/axios';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 function Cart() {
 
@@ -22,6 +23,10 @@ function Cart() {
             if (res.data.code === '00') {
                 var url = res.data.data;
                 window.open(url,'_blank');
+            }
+            else if (res.data.code === '01') {
+                swal("Success",res.data.message,"success");
+                navigate('/');
             }
         });
         console.log(radioValue, totalPrice);
